@@ -2,6 +2,8 @@
 CSE550 Team Project - Spring 2024
 ## Install VS Code with Git credentials added
 
+## Install Node.JS and Angular
+
 ## Configure your name to be able to send update messages by typing these in or work with Git in the VS Code
 ```
 $ git config --global user.email "you@example.com"
