@@ -24,6 +24,8 @@
   border-bottom: none;
   border-top: none;
   cursor: pointer;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 .buttons:hover {
