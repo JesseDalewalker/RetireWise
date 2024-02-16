@@ -1,0 +1,38 @@
+.nav-bar {
+  height: auto;
+}
+
+.nav-bar-container {
+  border: 1px solid black;
+  background-color: #689067;
+}
+
+.nav-bar-buttons {
+  display: flex;
+  justify-content: center;
+
+  align-items: center;
+}
+
+.buttons {
+  background-color: white;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-right: none;
+  border-bottom: none;
+  border-top: none;
+  cursor: pointer;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.buttons:hover {
+  border-right-width: 5px;
+  background-color: gray;
+}
+
+#login-button {
+  border-right: 2px solid;
+}
