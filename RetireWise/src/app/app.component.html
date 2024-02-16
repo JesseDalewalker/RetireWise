@@ -1,20 +1,39 @@
-
 <!-- Navigation Bar with Routing Links -->
 <!-- Must match app.routes.ts file -->
-<nav>
-  <div >
-    <div>
-      <a routerLink="/home" routerLinkActive="active">Home</a>
+
+<nav class="nav-bar">
+  <div class="nav-bar-container">
+    <div class="nav-bar-buttons">
+      <button routerLink="/home" routerLinkActive="active" class="buttons">
+        Home
+      </button>
       <!-- Replace /videosandquizzes path with /module path in future update -->
-      <a routerLink="/videosandquizzes" routerLinkActive="active">Videos and Quizzes</a>
-      <a routerLink="/calculator" routerLinkActive="active">Budget Calculator</a>
+      <button
+        routerLink="/videosandquizzes"
+        routerLinkActive="active"
+        class="buttons"
+      >
+        Videos and Quizzes
+      </button>
+      <button
+        routerLink="/calculator"
+        routerLinkActive="active"
+        class="buttons"
+      >
+        Budget Calculator
+      </button>
       <!-- Option 1: Figure out how to make /signup a dropdown for Login, with a text option to SignUp -->
       <!-- Option 2: Add two different options for Login and Signup on navigation bar that only appears when user is not logged in -->
       <!-- For both options: Replace Login/Signup option with Logout when user is logged in -->
-      <a routerLink="/login" routerLinkActive="active">Login</a>
+      <button
+        routerLink="/login"
+        routerLinkActive="active"
+        class="buttons"
+        id="login-button"
+      >
+        Login
+      </button>
     </div>
   </div>
 </nav>
-
-<router-outlet>
-</router-outlet>
+<router-outlet> </router-outlet>
