@@ -1,8 +1,12 @@
 export type WordCard = {
   id: number;
   wordName: string;
+  isFlipped: boolean;
+  state: 'default' | 'flipped' | ' matched';
 };
-type DefinitionCard = {
+export type DefinitionCard = {
   id: number;
   definition: string;
+  isFlipped: boolean;
+  state: 'default' | 'flipped' | ' matched';
 };
