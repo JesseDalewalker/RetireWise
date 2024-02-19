@@ -82,7 +82,10 @@ export class CardsComponent implements OnInit {
 
   flip: string = 'inactive';
 
-  cardClicked(id: number) {
+  cardClicked(id: number): number | undefined {
+    if (this.cardTurnOverCheck(this.wordCards) === true) {
+      return 0;
+    }
     this.wordCards.forEach(function (word) {
       if (word.id === id) {
         if (word.isFlipped === false) {
@@ -95,9 +98,28 @@ export class CardsComponent implements OnInit {
         }
       }
     });
+    return 0;
   }
 
-  definitionCardClicked(id: number) {
+  cardTurnOverCheck(array: WordCard[] | DefinitionCard[]): boolean | undefined {
+    let count: number = 0;
+    array.forEach(function (obj) {
+      if (obj.isFlipped) {
+        count += 1;
+      }
+    });
+
+    if (count >= 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  definitionCardClicked(id: number): number | undefined {
+    if (this.cardTurnOverCheck(this.definitionCards) === true) {
+      return 0;
+    }
     this.definitionCards.forEach(function (definition) {
       if (definition.id === id) {
         if (definition.isFlipped === false) {
@@ -110,5 +132,6 @@ export class CardsComponent implements OnInit {
         }
       }
     });
+    return 0;
   }
 }
