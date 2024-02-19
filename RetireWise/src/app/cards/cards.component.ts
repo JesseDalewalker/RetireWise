@@ -116,6 +116,31 @@ export class CardsComponent implements OnInit {
     }
   }
 
+  resetCards(wordCardArray: WordCard[], definitionCardArray: DefinitionCard[]) {
+    console.log('here');
+    let count: number = 0;
+    definitionCardArray.forEach(function (definition) {
+      console.log(definition.definition);
+      if (definition.isFlipped === true) {
+        count += 1;
+      }
+    });
+    wordCardArray.forEach(function (term) {
+      if (term.isFlipped === true) {
+        count += 1;
+      }
+    });
+
+    if (count >= 2) {
+      definitionCardArray.forEach(function (definition) {
+        definition.isFlipped = false;
+      });
+      wordCardArray.forEach(function (term) {
+        term.isFlipped = false;
+      });
+    }
+  }
+
   definitionCardClicked(id: number): number | undefined {
     if (this.cardTurnOverCheck(this.definitionCards) === true) {
       return 0;
@@ -132,6 +157,13 @@ export class CardsComponent implements OnInit {
         }
       }
     });
+    const myTimeout = setTimeout(
+      this.resetCards,
+      2000,
+      this.wordCards,
+      this.definitionCards
+    );
+    // this.resetCards();
     return 0;
   }
 }
