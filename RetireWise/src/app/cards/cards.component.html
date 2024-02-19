@@ -1,5 +1,38 @@
-<p>cards works!</p>
-
-<div *ngFor="let obj of wordCards">
-  <p>{{ obj.id }}</p>
+<div class="titles">
+  <div class="term-title">Terms</div>
+  <div class="definition-title">Definitions</div>
 </div>
+<div class="card-container">
+  <div class="term-container" *ngFor="let obj of wordCards">
+    <div class="term" (click)="cardClicked(obj.id)">
+      <div class="term-front term-side" *ngIf="!obj.isFlipped">
+        Term {{ obj.id }}
+      </div>
+      <div class="term-back term-side" *ngIf="obj.isFlipped">
+        {{ obj.wordName }}
+      </div>
+    </div>
+  </div>
+  <div class="term-container" *ngFor="let obj of definitionCards">
+    <div class="term" (click)="definitionCardClicked(obj.id)">
+      <div class="term-front term-side" *ngIf="!obj.isFlipped">
+        Definition {{ obj.id }}
+      </div>
+      <div class="term-back term-side" *ngIf="obj.isFlipped">
+        {{ obj.definition }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="term-container" *ngFor="let obj of wordCards">
+  <div>
+    {{ obj.wordName }}
+  </div>
+</div> -->
+<!-- <div class="tp-wrapper">
+  <div class="tp-box" (click)="cardClicked()" [@cardFlip]="flip">
+    <div class="tp-box__side tp-box__front">Front</div>
+    <div class="tp-box__side tp-box__back">Back</div>
+  </div>
+</div> -->
