@@ -2,9 +2,12 @@
   <div class="term-title">Terms</div>
   <div class="definition-title">Definitions</div>
 </div>
-<div class="card-container">
-  <div class="term-container" *ngFor="let obj of wordCards">
-    <div class="term" (click)="cardClicked(obj.id)">
+<div class="card-container grid grid-cols-4 gap-x-10 pl-10 pr-10">
+  <div
+    class="term-container grid grid-cols-subgrid"
+    *ngFor="let obj of wordCards"
+  >
+    <div class="term col-start-1" (click)="cardClicked(obj.id)">
       <div class="term-front term-side" *ngIf="!obj.isFlipped">
         Term {{ obj.id }}
       </div>
@@ -13,8 +16,11 @@
       </div>
     </div>
   </div>
-  <div class="term-container" *ngFor="let obj of definitionCards">
-    <div class="term" (click)="definitionCardClicked(obj.id)">
+  <div
+    class="definition-container grid grid-cols-subgrid"
+    *ngFor="let obj of definitionCards"
+  >
+    <div class="definition col-start-3" (click)="definitionCardClicked(obj.id)">
       <div class="term-front term-side" *ngIf="!obj.isFlipped">
         Definition {{ obj.id }}
       </div>
