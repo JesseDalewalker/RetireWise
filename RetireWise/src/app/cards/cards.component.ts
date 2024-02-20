@@ -8,7 +8,6 @@ import {
 } from '@angular/animations';
 import { WordCard, DefinitionCard } from './types';
 import { CommonModule } from '@angular/common';
-import { NbCardModule } from '@nebular/theme';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @Component({
   selector: 'app-cards',
@@ -59,6 +58,48 @@ export class CardsComponent implements OnInit {
       isFlipped: false,
       state: 'default',
     },
+
+    {
+      id: 3,
+      wordName: 'tes3',
+      isFlipped: false,
+      state: 'default',
+    },
+
+    {
+      id: 4,
+      wordName: 'test4',
+      isFlipped: false,
+      state: 'default',
+    },
+
+    {
+      id: 5,
+      wordName: 'test5',
+      isFlipped: false,
+      state: 'default',
+    },
+
+    {
+      id: 6,
+      wordName: 'test6',
+      isFlipped: false,
+      state: 'default',
+    },
+
+    {
+      id: 7,
+      wordName: 'test7',
+      isFlipped: false,
+      state: 'default',
+    },
+
+    {
+      id: 8,
+      wordName: 'test8',
+      isFlipped: false,
+      state: 'default',
+    },
   ];
 
   definitionCards: DefinitionCard[] = [
@@ -71,6 +112,42 @@ export class CardsComponent implements OnInit {
     {
       id: 2,
       definition: 'Definition of test2',
+      isFlipped: false,
+      state: 'default',
+    },
+    {
+      id: 3,
+      definition: 'Definition of test3',
+      isFlipped: false,
+      state: 'default',
+    },
+    {
+      id: 4,
+      definition: 'Definition of test4',
+      isFlipped: false,
+      state: 'default',
+    },
+    {
+      id: 5,
+      definition: 'Definition of test5',
+      isFlipped: false,
+      state: 'default',
+    },
+    {
+      id: 6,
+      definition: 'Definition of test6',
+      isFlipped: false,
+      state: 'default',
+    },
+    {
+      id: 7,
+      definition: 'Definition of test7',
+      isFlipped: false,
+      state: 'default',
+    },
+    {
+      id: 8,
+      definition: 'Definition of test8',
       isFlipped: false,
       state: 'default',
     },
