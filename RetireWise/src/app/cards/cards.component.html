@@ -7,7 +7,7 @@
     class="term-container grid grid-cols-subgrid"
     *ngFor="let obj of wordCards"
   >
-    <div class="term col-start-1" (click)="cardClicked(obj.id)">
+    <div class="term col-start-1 rounded-lg" (click)="cardClicked(obj.id)">
       <div class="term-front term-side" *ngIf="!obj.isFlipped">
         Term {{ obj.id }}
       </div>

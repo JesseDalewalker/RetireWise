@@ -233,7 +233,7 @@ export class CardsComponent implements OnInit {
           }
         });
         wordCardArray.forEach(function (term) {
-          if ((term.state = 'default')) {
+          if (term.state === 'default') {
             term.isFlipped = false;
           }
         });
@@ -260,7 +260,7 @@ export class CardsComponent implements OnInit {
 
     const myTimeout = setTimeout(
       this.resetCards,
-      50000,
+      2000,
       this.wordCards,
       this.definitionCards
     );
