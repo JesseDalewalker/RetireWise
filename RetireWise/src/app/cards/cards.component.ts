@@ -87,7 +87,7 @@ export class CardsComponent implements OnInit {
   cardTurnOverCheck(array: WordCard[] | DefinitionCard[]): boolean | undefined {
     let count: number = 0;
     array.forEach(function (obj) {
-      if (obj.isFlipped) {
+      if (obj.isFlipped && obj.state === 'default') {
         count += 1;
       }
     });
@@ -99,16 +99,21 @@ export class CardsComponent implements OnInit {
     }
   }
 
-  cardsMatched(
-    wordId: number | null,
-    definitionId: number | null
-  ): boolean | undefined {
-    if (wordId === definitionId) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // cardsMatched(
+  //   wordCardArray: WordCard[], definitionCardArray: DefinitionCard[]
+  // ): boolean | undefined {
+
+  //   let count: number = 0;
+  //   let wordCardId: number = 1;
+  //   let definitionCardId: number = 0;
+  //   definitionCardArray.forEach(function (definition) {
+  //     console.log(definition.definition);
+  //     if (definition.isFlipped === true && definition.state === 'default') {
+  //       definitionCardId = definition.id;
+  //       count += 1;
+  //     }
+  //   });
+  // }
 
   resetCards(wordCardArray: WordCard[], definitionCardArray: DefinitionCard[]) {
     console.log('here');
@@ -119,13 +124,13 @@ export class CardsComponent implements OnInit {
     // Find all cards that are flipped in both the term array and definition array
     definitionCardArray.forEach(function (definition) {
       console.log(definition.definition);
-      if (definition.isFlipped === true) {
+      if (definition.isFlipped === true && definition.state === 'default') {
         definitionCardId = definition.id;
         count += 1;
       }
     });
     wordCardArray.forEach(function (term) {
-      if (term.isFlipped === true) {
+      if (term.isFlipped === true && term.state === 'default') {
         wordCardId = term.id;
         count += 1;
       }
@@ -133,14 +138,29 @@ export class CardsComponent implements OnInit {
 
     // if two or more cards total are flipped over, reset all cards
     if (count >= 2) {
-      if (this.cardsMatched(wordCardId, definitionCardId)) {
+      if (wordCardId === definitionCardId) {
+        definitionCardArray.forEach(function (definition) {
+          if (definition.id === definitionCardId) {
+            definition.state = 'matched';
+          }
+        });
+        wordCardArray.forEach(function (term) {
+          if (term.id === wordCardId) {
+            term.state = 'matched';
+          }
+        });
+      } else {
+        definitionCardArray.forEach(function (definition) {
+          if (definition.state === 'default') {
+            definition.isFlipped = false;
+          }
+        });
+        wordCardArray.forEach(function (term) {
+          if ((term.state = 'default')) {
+            term.isFlipped = false;
+          }
+        });
       }
-      definitionCardArray.forEach(function (definition) {
-        definition.isFlipped = false;
-      });
-      wordCardArray.forEach(function (term) {
-        term.isFlipped = false;
-      });
     }
   }
 
@@ -153,6 +173,8 @@ export class CardsComponent implements OnInit {
         if (definition.isFlipped === false) {
           definition.isFlipped = true;
           console.log(definition.definition);
+        } else if (definition.state === 'matched') {
+          definition.isFlipped = true;
         } else {
           definition.isFlipped = false;
         }
@@ -161,7 +183,7 @@ export class CardsComponent implements OnInit {
 
     const myTimeout = setTimeout(
       this.resetCards,
-      2000,
+      50000,
       this.wordCards,
       this.definitionCards
     );
@@ -178,6 +200,8 @@ export class CardsComponent implements OnInit {
         if (word.isFlipped === false) {
           word.isFlipped = true;
           console.log(word.state + ' ' + word.wordName);
+        } else if (word.state === 'matched') {
+          word.isFlipped = true;
         } else {
           word.isFlipped = false;
         }
