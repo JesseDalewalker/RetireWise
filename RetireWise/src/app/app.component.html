@@ -1,39 +1,83 @@
 <!-- Navigation Bar with Routing Links -->
 <!-- Must match app.routes.ts file -->
 
-<nav class="nav-bar">
-  <div class="nav-bar-container">
-    <div class="nav-bar-buttons">
-      <button routerLink="/home" routerLinkActive="active" class="buttons">
-        Home
-      </button>
-      <!-- Replace /videosandquizzes path with /module path in future update -->
-      <button
-        routerLink="/videosandquizzes"
-        routerLinkActive="active"
-        class="buttons"
-      >
-        Videos and Quizzes
-      </button>
-      <button
-        routerLink="/calculator"
-        routerLinkActive="active"
-        class="buttons"
-      >
-        Budget Calculator
-      </button>
-      <!-- Option 1: Figure out how to make /signup a dropdown for Login, with a text option to SignUp -->
-      <!-- Option 2: Add two different options for Login and Signup on navigation bar that only appears when user is not logged in -->
-      <!-- For both options: Replace Login/Signup option with Logout when user is logged in -->
-      <button
-        routerLink="/login"
-        routerLinkActive="active"
-        class="buttons"
-        id="login-button"
-      >
-        Login
-      </button>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>RetireWise - HomePage</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="RetireWise\src\piggy.png" rel="icon">
+  <link href="RetireWise\src\apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Muli:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href=".\home\Flattern - Template HTML CSS\assets\vendor\animate.css\animate.min.css" rel="stylesheet">
+  <link href=".\home\Flattern - Template HTML CSS\assets\vendor\aos\aos.css" rel="stylesheet">
+  <link href=".\home\Flattern - Template HTML CSS\assets\vendor\bootstrap\css\bootstrap.min.css" rel="stylesheet">
+  <link href=".\home\Flattern - Template HTML CSS\assets\vendor\bootstrap-icons\bootstrap-icons.css" rel="stylesheet">
+  <link href=".\home\Flattern - Template HTML CSS\assets\vendor\boxicons\css\boxicons.min.css" rel="stylesheet">
+  <link href=".\home\Flattern - Template HTML CSS\assets\vendor\glightbox\css\glightbox.min.css" rel="stylesheet">
+  <link href=".\home\Flattern - Template HTML CSS\assets\vendor\swiper\swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="C:\RetireWise\RetireWise\src\styles.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Flattern
+  * Updated: Jan 29 2024 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/flattern-multipurpose-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">contact"&#64;"example.com</a></i>
+        <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
+      </div>
     </div>
-  </div>
-</nav>
-<router-outlet> </router-outlet>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-between">
+
+      <div class="logo">
+        <h1 class="text-light"><a href="index.html">RetireWise</a></h1>
+        <a href="index.html"><img src="piggy.png" alt="" class="img-fluid"></a>
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a routerLink="/home">Home</a></li>
+          <li><a routerLink="/videosandquizzes">Videos & Quizzes</a></li>
+          <li><a routerLink="/calculator">Budget Calculator</a></li>
+          <li><a routerLink="/login">Login</a></li>
+          <li><a routerLink="/signup">Sign Up</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+      <router-outlet></router-outlet>
+
+    </div>
+  </header><!-- End Header -->
+
+  <body>
+    <h3>Need help figuring out how to plan your retirement? Get RetireWise and teach yourself the fundamentals!</h3>
+  </body>
+
+
