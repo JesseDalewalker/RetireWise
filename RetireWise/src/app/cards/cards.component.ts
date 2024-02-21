@@ -1,50 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  trigger,
-  state,
-  style,
-  transition,
-  animate,
-} from '@angular/animations';
-import { WordCard, DefinitionCard } from './types';
+import { TermCard, DefinitionCard } from './types';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @Component({
   selector: 'app-cards',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './cards.component.html',
   styleUrl: './cards.component.css',
-  animations: [
-    trigger('cardFlip', [
-      state(
-        'default',
-        style({
-          transform: 'none',
-        })
-      ),
-      state(
-        'flipped',
-        style({
-          transform: 'rotateY(180deg)',
-        })
-      ),
-      state(
-        'matched',
-        style({
-          visibility: 'false',
-          transform: 'scale(0.05)',
-          opacity: 0,
-        })
-      ),
-      transition('default => flipped', [animate('400ms')]),
-      transition('flipped => default', [animate('400ms')]),
-      transition('* => matched', [animate('400ms')]),
-    ]),
-  ],
 })
 export class CardsComponent implements OnInit {
-  wordCards: WordCard[] = [
+  // Dummy data for terms and definitions
+  termCards: TermCard[] = [
     {
       id: 1,
       wordName: 'test',
@@ -153,15 +120,17 @@ export class CardsComponent implements OnInit {
     },
   ];
 
+  /*******************************************************************************/
+
   constructor() {}
 
   ngOnInit() {}
 
   flip: string = 'inactive';
 
-  // Checks to make sure only one term and one definition are allowed to be turned over
-  // at the same time.
-  cardTurnOverCheck(array: WordCard[] | DefinitionCard[]): boolean | undefined {
+  /* Checks to make sure only one term and one definition are allowed to be turned over
+     at the same time.*/
+  cardTurnOverCheck(array: TermCard[] | DefinitionCard[]): boolean | undefined {
     let count: number = 0;
     array.forEach(function (obj) {
       if (obj.isFlipped && obj.state === 'default') {
@@ -176,26 +145,9 @@ export class CardsComponent implements OnInit {
     }
   }
 
-  // cardsMatched(
-  //   wordCardArray: WordCard[], definitionCardArray: DefinitionCard[]
-  // ): boolean | undefined {
-
-  //   let count: number = 0;
-  //   let wordCardId: number = 1;
-  //   let definitionCardId: number = 0;
-  //   definitionCardArray.forEach(function (definition) {
-  //     console.log(definition.definition);
-  //     if (definition.isFlipped === true && definition.state === 'default') {
-  //       definitionCardId = definition.id;
-  //       count += 1;
-  //     }
-  //   });
-  // }
-
-  resetCards(wordCardArray: WordCard[], definitionCardArray: DefinitionCard[]) {
-    console.log('here');
+  resetCards(termCardArray: TermCard[], definitionCardArray: DefinitionCard[]) {
     let count: number = 0;
-    let wordCardId: number = 1;
+    let termCardId: number = 1;
     let definitionCardId: number = 0;
 
     // Find all cards that are flipped in both the term array and definition array
@@ -206,23 +158,26 @@ export class CardsComponent implements OnInit {
         count += 1;
       }
     });
-    wordCardArray.forEach(function (term) {
+    termCardArray.forEach(function (term) {
       if (term.isFlipped === true && term.state === 'default') {
-        wordCardId = term.id;
+        termCardId = term.id;
         count += 1;
       }
     });
 
-    // if two or more cards total are flipped over, reset all cards
+    /* if two or more cards total are flipped over and they are not a match, flip them back
+       over. If they are a match they will stay flipped to show the name of the term and 
+       the definition
+    */
     if (count >= 2) {
-      if (wordCardId === definitionCardId) {
+      if (termCardId === definitionCardId) {
         definitionCardArray.forEach(function (definition) {
           if (definition.id === definitionCardId) {
             definition.state = 'matched';
           }
         });
-        wordCardArray.forEach(function (term) {
-          if (term.id === wordCardId) {
+        termCardArray.forEach(function (term) {
+          if (term.id === termCardId) {
             term.state = 'matched';
           }
         });
@@ -232,7 +187,7 @@ export class CardsComponent implements OnInit {
             definition.isFlipped = false;
           }
         });
-        wordCardArray.forEach(function (term) {
+        termCardArray.forEach(function (term) {
           if (term.state === 'default') {
             term.isFlipped = false;
           }
@@ -241,6 +196,7 @@ export class CardsComponent implements OnInit {
     }
   }
 
+  // handles click event of definition cards
   definitionCardClicked(id: number): number | undefined {
     if (this.cardTurnOverCheck(this.definitionCards) === true) {
       return 0;
@@ -261,33 +217,33 @@ export class CardsComponent implements OnInit {
     const myTimeout = setTimeout(
       this.resetCards,
       2000,
-      this.wordCards,
+      this.termCards,
       this.definitionCards
     );
-    // this.resetCards();
     return 0;
   }
 
-  cardClicked(id: number): number | undefined {
-    if (this.cardTurnOverCheck(this.wordCards) === true) {
+  // handles click event of term cards
+  termCardClicked(id: number): number | undefined {
+    if (this.cardTurnOverCheck(this.termCards) === true) {
       return 0;
     }
-    this.wordCards.forEach(function (word) {
-      if (word.id === id) {
-        if (word.isFlipped === false) {
-          word.isFlipped = true;
-          console.log(word.state + ' ' + word.wordName);
-        } else if (word.state === 'matched') {
-          word.isFlipped = true;
+    this.termCards.forEach(function (term) {
+      if (term.id === id) {
+        if (term.isFlipped === false) {
+          term.isFlipped = true;
+          console.log(term.state + ' ' + term.wordName);
+        } else if (term.state === 'matched') {
+          term.isFlipped = true;
         } else {
-          word.isFlipped = false;
+          term.isFlipped = false;
         }
       }
     });
     const myTimeout = setTimeout(
       this.resetCards,
       2000,
-      this.wordCards,
+      this.termCards,
       this.definitionCards
     );
     return 0;
