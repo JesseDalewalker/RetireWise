@@ -40,3 +40,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+#Template Used
+RetireWise\src\app\home\Flattern - Template HTML CSS
