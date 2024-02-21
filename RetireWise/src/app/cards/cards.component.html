@@ -6,11 +6,11 @@
 <div class="card-container grid grid-cols-4 gap-x-10 pl-10 pr-10">
   <div
     class="term-container grid grid-cols-subgrid"
-    *ngFor="let obj of wordCards"
+    *ngFor="let obj of termCards"
   >
     <div
       class="term col-start-1 border rounded-lg"
-      (click)="cardClicked(obj.id)"
+      (click)="termCardClicked(obj.id)"
     >
       <div
         class="term-front term-side rounded-xl text-black border-solid border-black border-2 shadow-lg"
@@ -43,6 +43,9 @@
       <div
         class="term-back term-side rounded-xl text-black border-solid border-black border-2 shadow-lg"
         *ngIf="obj.isFlipped"
+        [ngStyle]="{
+          'background-color': obj.state === 'matched' ? 'green' : 'white'
+        }"
       >
         {{ obj.definition }}
       </div>
