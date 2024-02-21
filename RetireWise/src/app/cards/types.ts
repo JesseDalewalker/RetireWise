@@ -1,4 +1,4 @@
-export type WordCard = {
+export type TermCard = {
   id: number;
   wordName: string;
   isFlipped: boolean;
