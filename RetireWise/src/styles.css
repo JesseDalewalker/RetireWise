@@ -33,7 +33,12 @@ h3 {
   -webkit-text-fill-color: aquamarine;
   text-align: center;
   text-wrap: wrap;
-  background-color:#543bad;
+  background-color:#ebeaee;
+  padding-top: 3rem;
+}
+
+.logo {
+  padding-top: 1em;
 }
 
 h1,

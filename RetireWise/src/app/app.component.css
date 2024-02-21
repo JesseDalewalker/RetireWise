@@ -45,7 +45,7 @@
 * Desktop Navigation
 */
 .navbar {
-  padding: 0;
+  padding: 10;
 }
 
 .navbar ul {
@@ -186,7 +186,7 @@
 
 @media (max-width: 991px) {
   .mobile-nav-toggle {
-    display: block;
+    display: flex;
   }
 
   .navbar ul {
@@ -215,7 +215,7 @@
 .navbar-mobile ul {
   display: block;
   position: absolute;
-  top: 55px;
+  top: 15px;
   right: 15px;
   bottom: 15px;
   left: 15px;
