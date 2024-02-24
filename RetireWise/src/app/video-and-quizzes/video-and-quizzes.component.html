@@ -1,8 +1,27 @@
+<!-- Embedded YouTube video -->
+<iframe [src]="videoURL" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<!-- Adds space (breaks) between video and quiz -->
+<br/>
+<br/>
+<br/>
+<br/>
+
+<!-- Displays quiz questions -->
+<div class="multiple-c">
+  <p>{{ question }}</p>
+    <ul>
+      <li *ngFor="let option of options" (click)="onSelectOption(option)" [class.selected]="selectedOption === option">
+        {{ option }}
+      </li>
+    </ul>
+</div>
+
 <div>
-  <p>video-and-quizzes works!</p>
 
   <button routerLink="/cards" routerLinkActive="active" class="buttons">
     Matching Card Game
   </button>
 </div>
+
 <router-outlet></router-outlet>
