@@ -1,1 +1,66 @@
-<p>cards works!</p>
+<div class="titles">
+  <div class="flex justify-center pt-6 text-lg font-medium">
+    Matching Card Game
+  </div>
+</div>
+<div class="card-container grid grid-cols-4 gap-x-10 pl-10 pr-10">
+  <div
+    class="term-container grid grid-cols-subgrid"
+    *ngFor="let obj of termCards"
+  >
+    <div
+      class="term col-start-1 border rounded-lg"
+      (click)="termCardClicked(obj.id)"
+    >
+      <div
+        class="term-front term-side rounded-xl text-black border-solid border-black border-2 shadow-lg"
+        *ngIf="!obj.isFlipped"
+      >
+        Term {{ obj.id }}
+      </div>
+      <div
+        class="term-back term-side rounded-xl text-black border-solid border-black border-2 shadow-lg"
+        *ngIf="obj.isFlipped"
+        [ngStyle]="{
+          'background-color': obj.state === 'matched' ? 'green' : 'white'
+        }"
+      >
+        {{ obj.wordName }}
+      </div>
+    </div>
+  </div>
+  <div
+    class="definition-container grid grid-cols-subgrid"
+    *ngFor="let obj of definitionCards"
+  >
+    <div class="definition col-start-3" (click)="definitionCardClicked(obj.id)">
+      <div
+        class="term-front term-side rounded-xl text-black border-solid border-black border-2 shadow-lg"
+        *ngIf="!obj.isFlipped"
+      >
+        Definition {{ obj.id }}
+      </div>
+      <div
+        class="term-back term-side rounded-xl text-black border-solid border-black border-2 shadow-lg"
+        *ngIf="obj.isFlipped"
+        [ngStyle]="{
+          'background-color': obj.state === 'matched' ? 'green' : 'white'
+        }"
+      >
+        {{ obj.definition }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="term-container" *ngFor="let obj of wordCards">
+  <div>
+    {{ obj.wordName }}
+  </div>
+</div> -->
+<!-- <div class="tp-wrapper">
+  <div class="tp-box" (click)="cardClicked()" [@cardFlip]="flip">
+    <div class="tp-box__side tp-box__front">Front</div>
+    <div class="tp-box__side tp-box__back">Back</div>
+  </div>
+</div> -->
