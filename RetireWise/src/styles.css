@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
 * Template Name: Flattern
 * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -9,6 +10,13 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+=======
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+>>>>>>> c1fe39253873e8e5178ca667b663894383a6d377
 body {
   font-family: "Open Sans", sans-serif;
   color: #4d4643;
