@@ -28,7 +28,7 @@ export class CardsComponent implements OnInit {
 
     {
       id: 3,
-      wordName: 'tes3',
+      wordName: 'test3',
       isFlipped: false,
       state: 'default',
     },
@@ -166,7 +166,7 @@ export class CardsComponent implements OnInit {
     });
 
     /* if two or more cards total are flipped over and they are not a match, flip them back
-       over. If they are a match they will stay flipped to show the name of the term and 
+       over. If they are a match they will stay flipped to show the name of the term and
        the definition
     */
     if (count >= 2) {
