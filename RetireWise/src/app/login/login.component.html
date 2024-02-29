@@ -1,1 +1,11 @@
-<p>login works!</p>
+<div class="login">
+  <!-- Add comments later -->
+  <form [formGroup]="form" (ngSubmit)="submit()" >
+      <!-- -->
+      <input type="text" placeholder="Username" formControlName="username" required />
+      <!-- -->
+      <input type="password" placeholder="Password" formControlName="password" required />
+      <!-- -->
+      <button class="submit" [disabled]="!form.valid">Submit</button>
+  </form>
+</div>
