@@ -1,16 +1,18 @@
 <nav class="nav-bar">
   <div class="nav-bar-container">
     <div class="nav-bar-buttons">
-      <button routerLink="/home" routerLinkActive="active" class="buttons">
+      <button 
+        routerLink="/home" 
+        routerLinkActive="active" 
+        class="buttons">
         Home
       </button>
-      <!-- Replace /videosandquizzes path with /module path in future update -->
       <button
-        routerLink="/videosandquizzes"
+        routerLink="/module"
         routerLinkActive="active"
         class="buttons"
       >
-        Videos and Quizzes
+        Module Selection
       </button>
       <button
         routerLink="/calculator"
@@ -19,9 +21,6 @@
       >
         Budget Calculator
       </button>
-      <!-- Option 1: Figure out how to make /signup a dropdown for Login, with a text option to SignUp -->
-      <!-- Option 2: Add two different options for Login and Signup on navigation bar that only appears when user is not logged in -->
-      <!-- For both options: Replace Login/Signup option with Logout when user is logged in -->
       <button
         routerLink="/login"
         routerLinkActive="active"

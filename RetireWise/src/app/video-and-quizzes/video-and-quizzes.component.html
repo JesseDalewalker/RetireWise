@@ -1,25 +1,48 @@
+<br/>
+
+<!-- Side Dongle Code -->
+
+<div class="side-container">
+  <div class="side-dongle">
+    <!-- Dynamically generate all the VideoAndQuizzes links in this module -->
+    <p>Module {{ currentModuleId }}</p>
+    <ul>
+      <li *ngFor="let module of modules">
+        <a [routerLink]="['/module', currentModuleId, 'videoandquizzes', module]">Video And Quiz {{ module }}</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
 <!-- Embedded YouTube video -->
 <iframe [src]="videoURL" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 <!-- Adds space (breaks) between video and quiz -->
 <br/>
 <br/>
-<br/>
-<br/>
 
-<!-- Displays quiz questions -->
-<div class="multiple-c">
-  <p>{{ question }}</p>
-    <ul>
-      <li *ngFor="let option of options" (click)="onSelectOption(option)" [class.selected]="selectedOption === option">
-        {{ option }}
-      </li>
-    </ul>
+<!-- Displays quiz questions and options -->
+
+<div *ngFor="let question of questions; let i = index">
+  <div class="multiple-c">
+    <p>{{ question }}</p>
+      <ul>
+        <li *ngFor="let option of options[i][1]; let j = index"
+        (click)="onSelectOption(option, i)"
+        [class.selected]="selectedOptions[i] === option"
+        >
+          {{ option }}
+        </li>
+      </ul>
+  </div>
+  <br/>
 </div>
 
-<div>
+<!-- Button that navigates to matching card game page -->
 
-  <button routerLink="/cards" routerLinkActive="active" class="buttons">
+<div>
+  <button (click)="navigateToCards()" class="buttons">
     Matching Card Game
   </button>
 </div>
