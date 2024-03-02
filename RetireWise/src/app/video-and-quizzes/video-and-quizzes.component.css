@@ -19,7 +19,7 @@ iframe {
 .multiple-c {
   border: 2px solid #333;
   border-radius: 10px;
-  
+
   width: 250px;
 
   padding: 10px;
@@ -32,12 +32,12 @@ iframe {
     list-style-type: none;
     padding: 0;
   }
-  
+
   li {
     cursor: pointer;
     padding: 5px;
   }
-  
+
   /* Highlights the MC option the user selects */
   li.selected {
     background-color: #cceeff;

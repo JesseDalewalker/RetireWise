@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -43,4 +44,11 @@ export class LoginComponent {
     this.router.navigate(['/signup']);
   }
 
+  //submit() function will create a new user and submit user to backend for approval
+  submit() {
+    let user = {
+      username: this.form.controls['username'].value,
+      password: this.form.controls['password'].value,
+    }
+  }
 }
