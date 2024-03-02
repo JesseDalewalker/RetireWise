@@ -11,6 +11,10 @@ iframe {
   place-items: center;
 }
 
+.spacing {
+  margin-bottom: 10px;
+}
+
 /* Effects this HTML class CSS */
 .multiple-c {
   border: 2px solid #333;
@@ -21,7 +25,7 @@ iframe {
   padding: 10px;
   margin: auto;
   display: grid;
-  place-items: center; 
+  place-items: center;
 }
 
   ul {
@@ -38,3 +42,21 @@ iframe {
   li.selected {
     background-color: #cceeff;
   }
+
+/* CSS for Side Dongle */
+
+.container {
+  position: relative;
+  height: 2000px;
+}
+
+.side-dongle {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}

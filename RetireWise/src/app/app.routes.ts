@@ -2,10 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './signup/signup.component';
-import { VideoAndQuizzesComponent } from './video-and-quizzes/video-and-quizzes.component';
 import { LoginComponent } from './login/login.component';
-import { CardsComponent } from './cards/cards.component';
 import { CalculatorComponent } from './calculator/calculator.component';
+import { ModuleComponent } from './module/module.component';
 
 //Application Routing
 //Path should match the routerLink indicated in app.component.html
@@ -13,8 +12,10 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
     { path: 'home', component: HomeComponent },
-    { path: 'videosandquizzes', component: VideoAndQuizzesComponent },
-    { path: 'cards', component: CardsComponent },
+    { path: 'module', component: ModuleComponent },
+    { path: 'module/:id', component: ModuleComponent},
+    { path: 'module/:id/videoandquizzes/:videoandquizzesId', component: ModuleComponent },
+    { path: 'module/:id/cards', component: ModuleComponent },
     { path: 'calculator', component: CalculatorComponent }
 ];
 

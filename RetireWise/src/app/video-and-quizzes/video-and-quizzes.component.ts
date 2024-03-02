@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 
 @Component({
   selector: 'app-video-and-quizzes',
@@ -13,30 +13,42 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 
 export class VideoAndQuizzesComponent {
 
-  //TODO: Need to add function that loads videoID, questions, and answers data from backend into their appropriate variables
+  //TODO: Need to add function that loads videoID, questions, and options data from backend into their appropriate variables
 
   //videoID is the everything after watch?v= in a YouTube video 
   //(Ex. https://www.youtube.com/watch?v=vStru2voDjY, vStru2voDjY is the ID)
   videoID = 'V241x0heWzQ';
   videoURL: SafeResourceUrl;
 
-  //TODO: Need to change question to a string[] whenever we dynamically load questions from backend
-  @Input() question: string;
-  @Input() options: string[];
-  @Output() optionSelected = new EventEmitter<string>();
+  questions: string[];
+  options: [number, string[]][] = [];
+  selectedOptions: (string | null)[] = [];
+  
+  currentModuleId!: number;
+  modules = [1, 2];
 
-  selectedOption!: string;
-
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(private sanitizer: DomSanitizer, private router: Router) {
     this.videoURL = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.videoID}`);
-    this.question = 'Is this a question?';
-    this.options = ['Option 1', 'Option 2'];
+
+    this.questions = ['Is this a question?', 'Is this also a question?'];
+    this.options = [[1, ['Option 1', 'Option 2']], [2, ['Option A', 'Option B', 'Option C']]];
+    this.selectedOptions = new Array(this.questions.length).fill(null);
+
+    const url = this.router.url;
+    const match = url.match(/\/module\/(\d+)/); 
+    if (match) {
+      this.currentModuleId = +match[1];
+    }
   }
 
-  //Function that handles the selection of an option and communicates it to the VideoAndQuizzesComponent component
-  onSelectOption(option: string) {
-    this.selectedOption = option;
-    this.optionSelected.emit(option);
+  //Function that handles the selection of an option
+  onSelectOption(option: string, questionIndex: number) {
+    // Set the selected option for the clicked question
+    this.selectedOptions[questionIndex] = option;
   }
 
+  //Function that redirects user to a module/:id/cards page, where :id is the current module number
+  navigateToCards() {
+    this.router.navigate(['/module', this.currentModuleId, 'cards']);
+  }
 }
