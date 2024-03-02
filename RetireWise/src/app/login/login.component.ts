@@ -43,12 +43,4 @@ export class LoginComponent {
   navigateToSignUp() {
     this.router.navigate(['/signup']);
   }
-
-  //submit() function will create a new user and submit user to backend for approval
-  submit() {
-    let user = {
-      username: this.form.controls['username'].value,
-      password: this.form.controls['password'].value,
-    }
-  }
 }
