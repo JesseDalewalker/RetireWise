@@ -1,0 +1,62 @@
+/* Effects this HTML element's CSS */
+iframe {
+  border: 2px solid #333;
+  border-radius: 10px;
+
+  width: 560px;
+  height: 315px;
+
+  margin: auto;
+  display: grid;
+  place-items: center;
+}
+
+.spacing {
+  margin-bottom: 10px;
+}
+
+/* Effects this HTML class CSS */
+.multiple-c {
+  border: 2px solid #333;
+  border-radius: 10px;
+
+  width: 250px;
+
+  padding: 10px;
+  margin: auto;
+  display: grid;
+  place-items: center;
+}
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    cursor: pointer;
+    padding: 5px;
+  }
+
+  /* Highlights the MC option the user selects */
+  li.selected {
+    background-color: #cceeff;
+  }
+
+/* CSS for Side Dongle */
+
+.container {
+  position: relative;
+  height: 2000px;
+}
+
+.side-dongle {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
