@@ -1,8 +1,6 @@
 div {
   background-attachment: fixed;
   background-size: cover;
-  background-color: #ccc;
-  background-image: url("about.jpg");
   background-position: fixed;
   height: 500rem;
 }
