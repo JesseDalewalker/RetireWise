@@ -1,19 +1,19 @@
 import * as mongodb from "mongodb";
-import { Employee } from "./user";
+import { User } from "./user";
 
 export const collections: {
-  employees?: mongodb.Collection<Employee>;
+  user?: mongodb.Collection<User>;
 } = {};
 
 export async function connectToDatabase(uri: string) {
   const client = new mongodb.MongoClient(uri);
   await client.connect();
 
-  const db = client.db("meanStackExample");
+  const db = client.db("LearningApp");
   await applySchemaValidation(db);
 
-  const employeesCollection = db.collection<Employee>("employees");
-  collections.employees = employeesCollection;
+  const userCollection = db.collection<User>("user");
+  collections.user = userCollection;
 }
 
 // Update our existing collection with JSON schema validation so we know our documents will always match the shape of our Employee model, even if added elsewhere.
@@ -22,24 +22,18 @@ async function applySchemaValidation(db: mongodb.Db) {
   const jsonSchema = {
     $jsonSchema: {
       bsonType: "object",
-      required: ["name", "position", "level"],
+      required: ["email", "password"],
       additionalProperties: false,
       properties: {
         _id: {},
         name: {
           bsonType: "string",
-          description: "'name' is required and is a string",
+          description: "'email' is required and is a string",
         },
         position: {
           bsonType: "string",
-          description: "'position' is required and is a string",
+          description: "'password' is required and is a string",
           minLength: 5,
-        },
-        level: {
-          bsonType: "string",
-          description:
-            "'level' is required and is one of 'junior', 'mid', or 'senior'",
-          enum: ["junior", "mid", "senior"],
         },
       },
     },
@@ -48,12 +42,12 @@ async function applySchemaValidation(db: mongodb.Db) {
   // Try applying the modification to the collection, if the collection doesn't exist, create it
   await db
     .command({
-      collMod: "employees",
+      collMod: "user",
       validator: jsonSchema,
     })
     .catch(async (error: mongodb.MongoServerError) => {
       if (error.codeName === "NamespaceNotFound") {
-        await db.createCollection("employees", { validator: jsonSchema });
+        await db.createCollection("user", { validator: jsonSchema });
       }
     });
 }
