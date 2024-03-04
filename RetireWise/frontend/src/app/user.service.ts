@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject, tap } from 'rxjs';
-import { User } from '../user';
+import { Subject } from 'rxjs';
+import { User } from '../../../backend/src/user';
 
 @Injectable({
   providedIn: 'root',
 })
+
 export class UserService {
   private url = 'http://localhost:5200';
   private users$: Subject<User[]> = new Subject();
