@@ -8,6 +8,7 @@ import { CalculatorComponent } from './calculator/calculator.component';
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { UsersListComponent } from './users-list/users-list.component';
 
 //Application Routing
 //Path should match the routerLink indicated in app.component.html
@@ -23,6 +24,7 @@ export const routes: Routes = [
   },
   { path: 'module/:id/cards', component: ModuleComponent },
   { path: 'calculator', component: CalculatorComponent },
+  { path: 'users', component: UsersListComponent },
 ];
 
 export const appRoutingModule = RouterModule.forRoot(routes);

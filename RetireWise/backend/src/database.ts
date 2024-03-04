@@ -26,11 +26,11 @@ async function applySchemaValidation(db: mongodb.Db) {
       additionalProperties: false,
       properties: {
         _id: {},
-        name: {
+        email: {
           bsonType: "string",
           description: "'email' is required and is a string",
         },
-        position: {
+        password: {
           bsonType: "string",
           description: "'password' is required and is a string",
           minLength: 5,
@@ -47,6 +47,7 @@ async function applySchemaValidation(db: mongodb.Db) {
     })
     .catch(async (error: mongodb.MongoServerError) => {
       if (error.codeName === "NamespaceNotFound") {
+        console.log("create user table");
         await db.createCollection("user", { validator: jsonSchema });
       }
     });

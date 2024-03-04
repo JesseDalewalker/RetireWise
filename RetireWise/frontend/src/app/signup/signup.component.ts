@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../user.service';
+import { UserService } from '../user.service';
 import { Observable } from 'rxjs';
 import { User } from '../../user';
 import { BrowserModule } from '@angular/platform-browser';

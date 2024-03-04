@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, tap } from 'rxjs';
-import { User } from './user';
+import { User } from '../user';
 
 @Injectable({
   providedIn: 'root',
