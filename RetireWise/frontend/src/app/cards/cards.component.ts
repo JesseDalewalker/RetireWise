@@ -3,6 +3,7 @@ import { TermCard, DefinitionCard } from './types';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { TermService } from '../term.service';
+import { DefinitionService } from '../definition.service';
 
 @Component({
   selector: 'app-cards',
@@ -124,15 +125,27 @@ export class CardsComponent {
 
   /*******************************************************************************/
   terms: TermCard[] = [];
+  definitions: DefinitionCard[] = [];
 
   private subscription: Subscription = new Subscription();
-  constructor(private termService: TermService) { }
+  private newsubscription: Subscription = new Subscription();
+  constructor(private termService: TermService, private definitionService: DefinitionService) { }
 
   ngOnInit(): void {
     this.subscription = this.termService.getTerms().subscribe(
       (data) => {
         console.log(data)
         this.terms = data;
+      },
+      (error) => {
+        console.error('Error fetching user data: ', error);
+      }
+    );
+
+    this.newsubscription = this.definitionService.getDefinitions().subscribe(
+      (data) => {
+        console.log(data)
+        this.definitions = data;
       },
       (error) => {
         console.error('Error fetching user data: ', error);

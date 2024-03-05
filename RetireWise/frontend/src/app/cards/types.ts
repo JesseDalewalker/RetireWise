@@ -6,7 +6,7 @@ export type TermCard = {
   state: 'default' | 'matched';
 };
 export type DefinitionCard = {
-  id: number;
+  id: string;
   definition: string;
   isFlipped: boolean;
   state: 'default' | 'matched';
