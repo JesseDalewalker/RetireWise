@@ -41,13 +41,13 @@
         Definition
       </div>
       <div
-        class="term-back term-side rounded-xl text-black border-solid border-black border-2 shadow-lg flex items-center justify-center"
+        class="term-side rounded-xl text-black border-solid border-black border-2 shadow-lg flex items-center justify-center pl-2"
         *ngIf="obj.isFlipped"
         [ngStyle]="{
           'background-color': obj.state === 'matched' ? 'green' : 'white'
         }"
       >
-        <div class="items-center justify-center">{{ obj.definition }}</div>
+        <div class="">{{ obj.definition }}</div>
       </div>
     </div>
   </div>
