@@ -2,12 +2,14 @@ import * as mongodb from "mongodb";
 import { User } from "./user";
 import { Module } from "./module";
 import { Term } from "./term";
+import { Definition } from "./definition";
 
 //Export all the collections here
 export const collections: {
   module?: mongodb.Collection<Module>;
   user?: mongodb.Collection<User>;
   term?: mongodb.Collection<Term>;
+  definition?: mongodb.Collection<Definition>;
 } = {};
 
 //Associate the database name and each individual collection here
@@ -26,6 +28,9 @@ export async function connectToDatabase(uri: string) {
 
   const termCollection = db.collection<Term>("terms");
   collections.term = termCollection;
+
+  const definitionCollection = db.collection<Definition>("definitions");
+  collections.definition = definitionCollection;
 }
 
 //TODO - Figure out the applySchemaValidation for each model/schema (e.g., module, videos, etc)
@@ -98,6 +103,30 @@ async function applySchemaValidation(db: mongodb.Db) {
           description: "'wordName' is required and is a string",
         },
 
+      },
+    },
+  };
+
+  const definitionSchema = {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["definition", "isFlipped", "state"],
+      additionalProperties: false,
+      properties: {
+        _id: {},
+        definition: {
+          bsonType: "string",
+          description: "'definitionID' is required and is a string",
+          minLength: 5,
+        },
+        isFlipped: {
+          bsonType: "boolean",
+          description: "'isFlipped' is required and is a boolean",
+        },
+        state: {
+          bsonType: "string",
+          description: "'state' is required and is a string",
+        },
       },
     },
   };
