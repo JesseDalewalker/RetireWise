@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { TermCard, DefinitionCard } from './types';
+import { TermCard, DefinitionCard } from '../cards/types'
+import { Definition } from '../../../../backend/src/definition';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { TermService } from '../term.service';
 import { DefinitionService } from '../definition.service';
+
 
 @Component({
   selector: 'app-cards',
@@ -13,117 +15,7 @@ import { DefinitionService } from '../definition.service';
   styleUrl: './cards.component.css',
 })
 export class CardsComponent {
-  // Dummy data for terms and definitions
-  // termCards: TermCard[] = [
-  //   {
-  //     id: 1,
-  //     wordName: 'test',
-  //     isFlipped: false,
-  //     state: 'default',
-  //   },
 
-  //   {
-  //     id: 2,
-  //     wordName: 'test2',
-  //     isFlipped: false,
-  //     state: 'default',
-  //   },
-
-  //   {
-  //     id: 3,
-  //     wordName: 'test3',
-  //     isFlipped: false,
-  //     state: 'default',
-  //   },
-
-  //   {
-  //     id: 4,
-  //     wordName: 'test4',
-  //     isFlipped: false,
-  //     state: 'default',
-  //   },
-
-  //   {
-  //     id: 5,
-  //     wordName: 'test5',
-  //     isFlipped: false,
-  //     state: 'default',
-  //   },
-
-  //   {
-  //     id: 6,
-  //     wordName: 'test6',
-  //     isFlipped: false,
-  //     state: 'default',
-  //   },
-
-  //   {
-  //     id: 7,
-  //     wordName: 'test7',
-  //     isFlipped: false,
-  //     state: 'default',
-  //   },
-
-  //   {
-  //     id: 8,
-  //     wordName: 'test8',
-  //     isFlipped: false,
-  //     state: 'default',
-  //   },
-  // ];
-
-  // definitionCards: DefinitionCard[] = [
-  //   {
-  //     id: 1,
-  //     definition: 'Definition of test',
-  //     isFlipped: false,
-  //     state: 'default',
-  //   },
-  //   {
-  //     id: 2,
-  //     definition: 'Definition of test2',
-  //     isFlipped: false,
-  //     state: 'default',
-  //   },
-  //   {
-  //     id: 3,
-  //     definition: 'Definition of test3',
-  //     isFlipped: false,
-  //     state: 'default',
-  //   },
-  //   {
-  //     id: 4,
-  //     definition: 'Definition of test4',
-  //     isFlipped: false,
-  //     state: 'default',
-  //   },
-  //   {
-  //     id: 5,
-  //     definition: 'Definition of test5',
-  //     isFlipped: false,
-  //     state: 'default',
-  //   },
-  //   {
-  //     id: 6,
-  //     definition: 'Definition of test6',
-  //     isFlipped: false,
-  //     state: 'default',
-  //   },
-  //   {
-  //     id: 7,
-  //     definition: 'Definition of test7',
-  //     isFlipped: false,
-  //     state: 'default',
-  //   },
-  //   {
-  //     id: 8,
-  //     definition: 'Definition of test8',
-  //     isFlipped: false,
-  //     state: 'default',
-  //   },
-  // ];
-
-  /*******************************************************************************/
   terms: TermCard[] = [];
   definitions: DefinitionCard[] = [];
 
@@ -174,14 +66,13 @@ export class CardsComponent {
 
   resetCards(termCardArray: TermCard[], definitionCardArray: DefinitionCard[]) {
     let count: number = 0;
-    let termCardId: string = "d";
-    let definitionCardId: string = "s";
+    let termCardId: string | undefined = "d";
+    let definitionCardId: string | undefined = "s";
 
     // Find all cards that are flipped in both the term array and definition array
     definitionCardArray.forEach(function (definition) {
-      console.log(definition.definition);
       if (definition.isFlipped === true && definition.state === 'default') {
-        definitionCardId = definition.id;
+        definitionCardId = definition._id;
         count += 1;
       }
     });
@@ -191,20 +82,22 @@ export class CardsComponent {
         count += 1;
       }
     });
-
+    console.log(termCardId + "  " + definitionCardId);
     /* if two or more cards total are flipped over and they are not a match, flip them back
        over. If they are a match they will stay flipped to show the name of the term and
        the definition
     */
     if (count >= 2) {
       if (termCardId === definitionCardId) {
+        console.log('here')
         definitionCardArray.forEach(function (definition) {
-          if (definition.id === definitionCardId) {
+          if (definition._id === definitionCardId) {
             definition.state = 'matched';
           }
         });
         termCardArray.forEach(function (term) {
-          if (term.id === termCardId) {
+          console.log('here')
+          if (term.definitionID === termCardId) {
             term.state = 'matched';
           }
         });
@@ -229,7 +122,7 @@ export class CardsComponent {
       return 0;
     }
     this.definitions.forEach(function (definition) {
-      if (definition.id === id) {
+      if (definition._id === id) {
         if (definition.isFlipped === false) {
           definition.isFlipped = true;
           console.log(definition.definition);
@@ -256,7 +149,7 @@ export class CardsComponent {
       return 0;
     }
     this.terms.forEach(function (term) {
-      if (term.id === id) {
+      if (term._id === id) {
         if (term.isFlipped === false) {
           term.isFlipped = true;
           console.log(term.state + ' ' + term.wordName);
@@ -274,5 +167,19 @@ export class CardsComponent {
       this.definitions
     );
     return 0;
+  }
+
+
+  //Unsubscribes from the backend upon leaving the home component page, which prevents multiple unnecessary backend calls
+  ngOnDestroy(): void {
+
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+
+    if (this.newsubscription) {
+      this.newsubscription.unsubscribe();
+    }
+
   }
 }
