@@ -1,5 +1,6 @@
 export type TermCard = {
-  id: number;
+  id: string;
+  definitionID: string;
   wordName: string;
   isFlipped: boolean;
   state: 'default' | 'matched';
