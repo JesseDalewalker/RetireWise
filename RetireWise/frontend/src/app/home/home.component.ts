@@ -1,16 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { SlickCarouselModule } from "ngx-slick-carousel";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, SlickCarouselModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 
 export class HomeComponent {
+  slides = [{ content: "Videos" },
+  { content: "Quizzes" },
+  { content: "Matching Cards" }, { content: "Budget Calculator" }]
 
+  slideConfig = {
+    "slidesToShow": 1,
+    "slidesToScroll": 1,
+    "autoplay": true,
+    "autoplaySpeed": 3000,
+    "pauseOnHover": true
+  }
 }
 
