@@ -1,0 +1,26 @@
+<!-- categories.component.html -->
+<div class="mt-5">
+    <div class="row" id="proBanner">
+        <div class="col-12">
+            <form [formGroup]="categoryForm" (ngSubmit)="categoryFormSubmit()" class="form-inline mb-0">
+                <input type="text" formControlName="category" class="form-control mr-sm-2" id="inlineFormInputCategory" placeholder="New Category">
+                <label for="inlineFormInputCategory" class="sr-only">Category</label>
+                <button class="btn btn-gradient-primary" type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-4 stretch-card grid-margin" *ngFor="let category of categories; let i = index">
+            <div class="card bg-default">
+                <div class="card-body">
+                    <button (click)="deleteCategory(i,category.id)" class="btn btn-default btn-sm text-danger float-right">
+                        <i class="mdi mdi-delete-forever mdi-24px"></i>
+                    </button>
+                    <p class="font-weight-normal mb-3 text-secondary">Category</p>
+                    <p>{{ category.category }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
