@@ -1,11 +1,12 @@
 export type TermCard = {
-  id: number;
+  _id: string;
+  definitionID: string;
   wordName: string;
   isFlipped: boolean;
   state: 'default' | 'matched';
 };
 export type DefinitionCard = {
-  id: number;
+  _id: string;
   definition: string;
   isFlipped: boolean;
   state: 'default' | 'matched';

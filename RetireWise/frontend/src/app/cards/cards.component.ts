@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { TermCard, DefinitionCard } from './types';
+import { TermCard, DefinitionCard } from '../cards/types'
+import { Definition } from '../../../../backend/src/definition';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { TermService } from '../term.service';
+import { DefinitionService } from '../definition.service';
+
 
 @Component({
   selector: 'app-cards',
@@ -10,121 +15,35 @@ import { CommonModule } from '@angular/common';
   styleUrl: './cards.component.css',
 })
 export class CardsComponent {
-  // Dummy data for terms and definitions
-  termCards: TermCard[] = [
-    {
-      id: 1,
-      wordName: 'test',
-      isFlipped: false,
-      state: 'default',
-    },
 
-    {
-      id: 2,
-      wordName: 'test2',
-      isFlipped: false,
-      state: 'default',
-    },
+  terms: TermCard[] = [];
+  definitions: DefinitionCard[] = [];
 
-    {
-      id: 3,
-      wordName: 'test3',
-      isFlipped: false,
-      state: 'default',
-    },
+  private subscription: Subscription = new Subscription();
+  private newsubscription: Subscription = new Subscription();
+  constructor(private termService: TermService, private definitionService: DefinitionService) { }
 
-    {
-      id: 4,
-      wordName: 'test4',
-      isFlipped: false,
-      state: 'default',
-    },
+  ngOnInit(): void {
+    this.subscription = this.termService.getTerms().subscribe(
+      (data) => {
+        console.log(data)
+        this.terms = data;
+      },
+      (error) => {
+        console.error('Error fetching user data: ', error);
+      }
+    );
 
-    {
-      id: 5,
-      wordName: 'test5',
-      isFlipped: false,
-      state: 'default',
-    },
-
-    {
-      id: 6,
-      wordName: 'test6',
-      isFlipped: false,
-      state: 'default',
-    },
-
-    {
-      id: 7,
-      wordName: 'test7',
-      isFlipped: false,
-      state: 'default',
-    },
-
-    {
-      id: 8,
-      wordName: 'test8',
-      isFlipped: false,
-      state: 'default',
-    },
-  ];
-
-  definitionCards: DefinitionCard[] = [
-    {
-      id: 1,
-      definition: 'Definition of test',
-      isFlipped: false,
-      state: 'default',
-    },
-    {
-      id: 2,
-      definition: 'Definition of test2',
-      isFlipped: false,
-      state: 'default',
-    },
-    {
-      id: 3,
-      definition: 'Definition of test3',
-      isFlipped: false,
-      state: 'default',
-    },
-    {
-      id: 4,
-      definition: 'Definition of test4',
-      isFlipped: false,
-      state: 'default',
-    },
-    {
-      id: 5,
-      definition: 'Definition of test5',
-      isFlipped: false,
-      state: 'default',
-    },
-    {
-      id: 6,
-      definition: 'Definition of test6',
-      isFlipped: false,
-      state: 'default',
-    },
-    {
-      id: 7,
-      definition: 'Definition of test7',
-      isFlipped: false,
-      state: 'default',
-    },
-    {
-      id: 8,
-      definition: 'Definition of test8',
-      isFlipped: false,
-      state: 'default',
-    },
-  ];
-
-  /*******************************************************************************/
-
-  constructor() {}
-
-  ngOnInit() {}
+    this.newsubscription = this.definitionService.getDefinitions().subscribe(
+      (data) => {
+        console.log(data)
+        this.definitions = data;
+      },
+      (error) => {
+        console.error('Error fetching user data: ', error);
+      }
+    );
+  }
 
   flip: string = 'inactive';
 
@@ -147,37 +66,38 @@ export class CardsComponent {
 
   resetCards(termCardArray: TermCard[], definitionCardArray: DefinitionCard[]) {
     let count: number = 0;
-    let termCardId: number = 1;
-    let definitionCardId: number = 0;
+    let termCardId: string | undefined = "d";
+    let definitionCardId: string | undefined = "s";
 
     // Find all cards that are flipped in both the term array and definition array
     definitionCardArray.forEach(function (definition) {
-      console.log(definition.definition);
       if (definition.isFlipped === true && definition.state === 'default') {
-        definitionCardId = definition.id;
+        definitionCardId = definition._id;
         count += 1;
       }
     });
     termCardArray.forEach(function (term) {
       if (term.isFlipped === true && term.state === 'default') {
-        termCardId = term.id;
+        termCardId = term.definitionID;
         count += 1;
       }
     });
-
+    console.log(termCardId + "  " + definitionCardId);
     /* if two or more cards total are flipped over and they are not a match, flip them back
        over. If they are a match they will stay flipped to show the name of the term and
        the definition
     */
     if (count >= 2) {
       if (termCardId === definitionCardId) {
+        console.log('here')
         definitionCardArray.forEach(function (definition) {
-          if (definition.id === definitionCardId) {
+          if (definition._id === definitionCardId) {
             definition.state = 'matched';
           }
         });
         termCardArray.forEach(function (term) {
-          if (term.id === termCardId) {
+          console.log('here')
+          if (term.definitionID === termCardId) {
             term.state = 'matched';
           }
         });
@@ -197,12 +117,12 @@ export class CardsComponent {
   }
 
   // handles click event of definition cards
-  definitionCardClicked(id: number): number | undefined {
-    if (this.cardTurnOverCheck(this.definitionCards) === true) {
+  definitionCardClicked(id: string): number | undefined {
+    if (this.cardTurnOverCheck(this.definitions) === true) {
       return 0;
     }
-    this.definitionCards.forEach(function (definition) {
-      if (definition.id === id) {
+    this.definitions.forEach(function (definition) {
+      if (definition._id === id) {
         if (definition.isFlipped === false) {
           definition.isFlipped = true;
           console.log(definition.definition);
@@ -217,19 +137,19 @@ export class CardsComponent {
     const myTimeout = setTimeout(
       this.resetCards,
       2000,
-      this.termCards,
-      this.definitionCards
+      this.terms,
+      this.definitions
     );
     return 0;
   }
 
   // handles click event of term cards
-  termCardClicked(id: number): number | undefined {
-    if (this.cardTurnOverCheck(this.termCards) === true) {
+  termCardClicked(id: string): number | undefined {
+    if (this.cardTurnOverCheck(this.terms) === true) {
       return 0;
     }
-    this.termCards.forEach(function (term) {
-      if (term.id === id) {
+    this.terms.forEach(function (term) {
+      if (term._id === id) {
         if (term.isFlipped === false) {
           term.isFlipped = true;
           console.log(term.state + ' ' + term.wordName);
@@ -243,9 +163,23 @@ export class CardsComponent {
     const myTimeout = setTimeout(
       this.resetCards,
       2000,
-      this.termCards,
-      this.definitionCards
+      this.terms,
+      this.definitions
     );
     return 0;
+  }
+
+
+  //Unsubscribes from the backend upon leaving the home component page, which prevents multiple unnecessary backend calls
+  ngOnDestroy(): void {
+
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+
+    if (this.newsubscription) {
+      this.newsubscription.unsubscribe();
+    }
+
   }
 }
