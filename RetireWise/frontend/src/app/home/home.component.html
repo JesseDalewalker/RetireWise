@@ -1,0 +1,56 @@
+<!-- <div style="margin-left: 10%; margin-right: 10%; margin-top: 20px">
+  <ngx-slick-carousel
+    class="carousel"
+    #slickModel="slick-carousel"
+    [config]="slideConfig"
+  >
+    <div ngxSlickItem *ngFor="let slide of slides" class="object-cover">
+      <img src="{{ slide.img }}" alt="" class="" />
+    </div>
+  </ngx-slick-carousel>
+</div> -->
+<div class="flex justify-center items-center bg-[#f6f0ea]">
+  <div class="flex-1 pl-10 pr-10 text-3xl">
+    <div class="bg-[#689067] pl-4 py-4 text-white rounded-lg">
+      Retirement planning is a crucial step toward achieving financial security,
+      independence, and peace of mind in one's later years. By taking proactive
+      steps to save, invest, and plan for the future, individuals can enjoy a
+      fulfilling and worry-free retirement journey. Start planning for your
+      retirement today!
+    </div>
+  </div>
+  <div class="flex-1"><img src="/assets/old_ppl_cutouts.jpg" /></div>
+</div>
+<div class="bg-[#689067] flex justify-center text-3xl text-white pt-4">
+  Ways To Learn About Retirement
+</div>
+
+<div class="bg-[#689067]">
+  <ngx-slick-carousel
+    class="carousel"
+    #slickModel="slick-carousel"
+    [config]="slideConfig"
+  >
+    <div
+      ngxSlickItem
+      *ngFor="let slide of slides"
+      class="text-3xl text-white mx-auto w-1/2 text-center py-10"
+    >
+      {{ slide.content }}
+    </div>
+  </ngx-slick-carousel>
+</div>
+<footer class="bg-[#f6f0ea] flex h-60">
+  <div class="items-center pl-32 pt-20 text-[#689067] text-2xl font-semibold">
+    RETIREWISE
+  </div>
+  <div
+    class="flex-1 pl-24 pt-5 border-l-2 ml-20 my-10 border-[#689067] text-[#689067]"
+  >
+    <li class="list-none">Contact Us</li>
+    <li class="list-none">Budget Calculator</li>
+    <li class="list-none">Sign In</li>
+    <li class="list-none">Sign Up</li>
+  </div>
+</footer>
+
