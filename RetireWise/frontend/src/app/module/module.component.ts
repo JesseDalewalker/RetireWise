@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router, } from '@angular/router';
 import { VideoAndQuizzesComponent } from '../video-and-quizzes/video-and-quizzes.component';
 import { CardsComponent } from "../cards/cards.component";
+import { Subscription } from 'rxjs';
+import { ModuleService } from '../module.service';
 
 @Component({
     selector: 'app-module',
@@ -13,14 +15,12 @@ import { CardsComponent } from "../cards/cards.component";
 })
 
 export class ModuleComponent{
-  //TODO: 1,2,3 is static. Need to add a function that loads the current number of modules from the backend and then generate 
-  //initialize moduleIDs with that number. E.g. if there are 3, load number, populate array with 1,2,3. If there are 10, load number,
-  //populate array with 1,2,3,4,5,6,7,8,9,10
-  moduleIDs: number[] = [1, 2, 3];
+  modules: any[] = [];
   selectedModule: number;
   currentURL: string;
+  private newsubscription: Subscription = new Subscription();
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private moduleService: ModuleService) {
     this.selectedModule = 0;
     this.currentURL = this.router.url;
   }
@@ -36,4 +36,26 @@ export class ModuleComponent{
   isNumeric(value: any): boolean {
     return !isNaN(value);
   }
+
+  //Instantiates the page once when it first loads
+  ngOnInit(): void {
+    // Check if the modules array is empty or the current URL is '/module'
+    // If either condition is true, fetch the module data
+      this.newsubscription = this.moduleService.getModules().subscribe(
+        (newdata) => {
+          this.modules = newdata;
+        },
+        (error) => {
+          console.error('Error fetching module data: ', error);
+        }
+      );
+  }
+  
+  //Unsubscribes from the backend upon leaving the home component page, which prevents multiple unnecessary backend calls
+  ngOnDestroy(): void {
+    if (this.newsubscription) {
+      this.newsubscription.unsubscribe();
+    }
+  }
+
 }

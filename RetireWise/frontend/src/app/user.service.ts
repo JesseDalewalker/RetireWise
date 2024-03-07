@@ -13,14 +13,11 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  private refreshUsers() {
+  //GET crud operation for frontend
+  getUsers(): Subject<User[]> {
     this.httpClient.get<User[]>(`${this.url}/users`).subscribe((users) => {
       this.users$.next(users);
     });
-  }
-
-  getUsers(): Subject<User[]> {
-    this.refreshUsers();
     return this.users$;
   }
 }

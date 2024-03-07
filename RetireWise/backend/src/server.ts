@@ -6,6 +6,8 @@ import { userRouter } from "./user.routes";
 import { moduleRouter } from "./module.routes";
 import { termRouter } from "./terms.routes";
 import { definitionRouter } from "./definitions.routes";
+import { videoRouter } from "./video.routes";
+import { questionoptionsanswerRouter } from "./questionoptionsanswer.routes";
 
 // Load environment variables from the .env file, where the ATLAS_URI is configured
 dotenv.config();
@@ -27,6 +29,8 @@ connectToDatabase(ATLAS_URI)
     app.use("/modules", moduleRouter);
     app.use("/terms", termRouter);
     app.use("/definitions", definitionRouter)
+    app.use("/videos", videoRouter);
+    app.use("/questionoptionsanswer", questionoptionsanswerRouter);
 
     // start the Express server
     app.listen(5200, () => {

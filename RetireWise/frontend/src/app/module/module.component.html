@@ -1,7 +1,7 @@
 <!-- Renders module selection page -->
 <div class="container" *ngIf="currentURL === '/module'">
-    <button *ngFor="let moduleId of moduleIDs" (click)="navigateToModule(moduleId)">
-      Module {{ moduleId }}
+    <button *ngFor="let module of modules" (click)="navigateToModule(module.moduleNumber)">
+      Module {{ module.moduleNumber }} - {{ module.name }}
     </button>
 </div>
 
