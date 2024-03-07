@@ -1,15 +1,30 @@
 <div class="signup">
-    <!-- Add comments later -->
-    <form [formGroup]="form" (ngSubmit)="submit()" >
-        <!-- -->
-        <input type="text" placeholder="Username" formControlName="username" required />
-        <!-- -->
-        <input type="password" placeholder="Password" formControlName="password" required />
-        <!-- -->
-        <input type="password" placeholder="Confirm Password" formControlName="password2" required />
-        <!-- -->
-        <button class="submit" (click)="reset()">Reset</button>
-        <!-- -->
-        <button class="submit" [disabled]="!form.valid">Submit</button>
-    </form>
+  <!-- Add comments later -->
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <!-- -->
+    <input
+      type="text"
+      placeholder="Email"
+      formControlName="email"
+      required
+    />
+    <!-- -->
+    <input
+      type="password"
+      placeholder="Password"
+      formControlName="password"
+      required
+    />
+    <!-- -->
+    <input
+      type="password"
+      placeholder="Confirm Password"
+      formControlName="password2"
+      required
+    />
+    <!-- -->
+    <button class="submit" (click)="reset()">Reset</button>
+    <!-- -->
+    <button class="submit" (click)="submit()">Submit</button>
+  </form>
 </div>

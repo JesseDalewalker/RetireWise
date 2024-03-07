@@ -2,13 +2,14 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { SlickCarouselModule } from "ngx-slick-carousel";
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, SlickCarouselModule],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, SlickCarouselModule, HttpClientModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
 
 export class HomeComponent {
@@ -24,4 +25,3 @@ export class HomeComponent {
     "pauseOnHover": true
   }
 }
-

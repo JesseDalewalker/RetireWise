@@ -1,8 +1,7 @@
 import * as mongodb from "mongodb";
 
-export interface Employee {
-  name: string;
-  position: string;
-  level: "junior" | "mid" | "senior";
+export interface User {
   _id?: mongodb.ObjectId;
+  email: string;
+  password: string;
 }
