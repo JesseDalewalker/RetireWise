@@ -1,0 +1,63 @@
+<!-- expenses.component.html -->
+<div class="mt-5">
+    <div class="col-12">
+        <h4 class="card-title">Save Expense</h4>
+        <span class="d-flex align-items-center purchase-popup">
+            <form [formGroup]="expenseForm" (ngSubmit)="expenseFormSubmit()" class="form-inline mt-3">
+            <!-- this is a hidden input, that used to reference an expense by id -->
+                <input type="text" formControlName="id" class="form-control mb-2 mr-sm-2" id="inlineFormInputExpense" placeholder="id" hidden>
+                <label for="inlineFormInputExpense" class="sr-only">Expense</label>
+                <input type="text" formControlName="expense" class="form-control mb-2 mr-sm-2" id="inlineFormInputExpense" placeholder="Expense" required>
+                <select formControlName="category" class="form-control mb-2 mr-sm-2">
+                    <option selected disabled>Choose a Category</option>
+                    <option *ngFor="let category of categories" value="{{category.category}}">{{cateory,category}}</option>
+                </select>
+                
+                <label class="sr-only" for="inlineFormInputExpense">Date</label>
+                <input type="date" formControlName="date" class="form-control mb-2 mr-sm-2" id="inlineFormInputExpense" placeholder="Date" required>
+                
+                <label for="inlineFormInputExpense" class="sr-only">Amount</label>
+                <input type="number" formControlName="amount" class="form-control mb-2 mr-sm-2" id="inlineFormInputExpense" placeholder="Amount" required>
+                
+                <div class="btn-group mb-2" role="group" aria-label="Basic example">
+                    <button class="btn btn-gradient-primary" type="submit">Save</button>
+                    <button class="btn btn-gradient-primary" type="reset">Reset</button>
+                </div>
+            </form>
+        </span>
+        <h4 class="card-title">List of Expenses</h4>
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Expense</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Amount ($)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let expense of expenses; let i = index">
+                            <td>{{expense.expense}}</td>
+                            <td>{{expense.category}}</td>
+                            <td>{{expense.date}}</td>
+                            <td>{{expense.amount}}</td>
+                            <td>
+                                <div class="btn-group mb-4" role="group" aria-button="Basic example">
+                                    <button (click)="deleteExpense(i,expense.id)" type="button" class="btn btn-danger btn-sm">
+                                        <i class="mdi mdi-delete forever"></i>
+                                    </button>
+                                    <button (click)="getExpense(expense.id)" type="button" class="btn btn-primary btn-sm">
+                                        <i class="mdi mdi-table-edit"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
