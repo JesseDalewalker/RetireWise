@@ -4,8 +4,8 @@
     <!-- -->
     <input
       type="text"
-      placeholder="Username"
-      formControlName="username"
+      placeholder="Email"
+      formControlName="email"
       required
     />
     <!-- -->
@@ -25,6 +25,6 @@
     <!-- -->
     <button class="submit" (click)="reset()">Reset</button>
     <!-- -->
-    <button class="submit" [disabled]="!form.valid">Submit</button>
+    <button class="submit" (click)="submit()">Submit</button>
   </form>
 </div>
