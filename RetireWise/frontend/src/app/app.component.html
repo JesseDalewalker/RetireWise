@@ -1,0 +1,32 @@
+<nav class="nav-bar">
+  <div class="nav-bar-container">
+    <div class="nav-bar-buttons">
+      <div class="pr-20 text-[#689067] text-2xl font-semibold">RETIREWISE</div>
+      <button routerLink="/home" routerLinkActive="active" class="buttons">
+        Home
+      </button>
+      <button routerLink="/module" routerLinkActive="active" class="buttons">
+        Module Selection
+      </button>
+      <button
+        routerLink="/calculator"
+        routerLinkActive="active"
+        class="buttons"
+      >
+        Budget Calculator
+      </button>
+      <div class="flex-1"></div>
+      <button
+        routerLink="/login"
+        routerLinkActive="active"
+        class="buttons"
+        id="login-button"
+      >
+        Login
+      </button>
+    </div>
+  </div>
+</nav>
+<div>
+  <router-outlet> </router-outlet>
+</div>

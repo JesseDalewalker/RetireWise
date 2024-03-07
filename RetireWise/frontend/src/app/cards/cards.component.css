@@ -1,0 +1,106 @@
+.card-container {
+  -webkit-perspective: 800px;
+  perspective: 800px;
+}
+
+.term-container {
+  position: relative;
+  width: 200px;
+  height: 100px;
+  margin: 3rem auto;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: transform 1s;
+  -ms-transform: transform 1s;
+  transform: transform 1s;
+}
+
+.definition-container {
+  position: relative;
+  width: 200px;
+  height: 100px;
+  margin: 3rem auto;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: transform 1s;
+  -ms-transform: transform 1s;
+  transform: transform 1s;
+}
+
+.term-side {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  /* line-height: 100px; */
+  /* font-size: 24px; */
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.term-front {
+  -webkit-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+}
+
+.term-back {
+  -webkit-transform: rotateY(-180deg);
+  -ms-transform: rotateY(-180deg);
+  transform: rotateY(0deg);
+}
+
+/* .tp-wrapper {
+  -webkit-perspective: 800px;
+  perspective: 800px;
+}
+
+.tp-box {
+  position: relative;
+  width: 200px;
+  height: 100px;
+  margin: 3rem auto;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: transform 1s;
+  -ms-transform: transform 1s;
+  transform: transform 1s;
+}
+.tp-box__side {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  color: #fff;
+  text-align: center;
+  line-height: 100px;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.tp-box__front {
+  background: green;
+  -webkit-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+}
+.tp-box__back {
+  background: #23262d;
+  -webkit-transform: rotateY(-180deg);
+  -ms-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+} */

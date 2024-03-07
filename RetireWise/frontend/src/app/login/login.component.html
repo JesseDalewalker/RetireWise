@@ -1,0 +1,17 @@
+<div class="signup">
+    <!-- Add comments later -->
+    <form [formGroup]="form" (ngSubmit)="submit()" >
+        <!-- -->
+        <input type="text" placeholder="Email" formControlName="email" required />
+        <!-- -->
+        <input type="password" placeholder="Password" formControlName="password" required />
+        <!-- -->
+        <button class="submit" (click)="reset()">Reset</button>
+        <!-- -->
+        <button class="submit" (click)="submit()">Submit</button>
+    </form>
+</div>
+<br>
+<button (click)="navigateToSignUp()" class="signup">
+    New User?
+</button>

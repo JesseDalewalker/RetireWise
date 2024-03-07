@@ -1,0 +1,54 @@
+<div class="titles">
+  <div class="flex justify-center pt-6 text-lg font-medium">
+    Matching Card Game
+  </div>
+</div>
+<div class="card-container grid grid-cols-4 gap-x-10 pl-10 pr-10">
+  <div class="term-container grid grid-cols-subgrid" *ngFor="let obj of terms">
+    <div
+      class="term col-start-1 border rounded-lg"
+      (click)="termCardClicked(obj._id)"
+    >
+      <div
+        class="term-front term-side rounded-xl text-black border-solid border-black border-2 shadow-lg flex items-center justify-center"
+        *ngIf="!obj.isFlipped"
+      >
+        Term
+      </div>
+      <div
+        class="term-back term-side rounded-xl text-black border-solid border-black border-2 shadow-lg flex items-center justify-center"
+        *ngIf="obj.isFlipped"
+        [ngStyle]="{
+          'background-color': obj.state === 'matched' ? 'green' : 'white'
+        }"
+      >
+        {{ obj.wordName }}
+      </div>
+    </div>
+  </div>
+  <div
+    class="definition-container grid grid-cols-subgrid"
+    *ngFor="let obj of definitions"
+  >
+    <div
+      class="definition col-start-3"
+      (click)="definitionCardClicked(obj._id)"
+    >
+      <div
+        class="term-front term-side rounded-xl text-black border-solid border-black border-2 shadow-lg flex items-center justify-center"
+        *ngIf="!obj.isFlipped"
+      >
+        Definition
+      </div>
+      <div
+        class="term-side rounded-xl text-black border-solid border-black border-2 shadow-lg flex items-center justify-center pl-2"
+        *ngIf="obj.isFlipped"
+        [ngStyle]="{
+          'background-color': obj.state === 'matched' ? 'green' : 'white'
+        }"
+      >
+        <div class="">{{ obj.definition }}</div>
+      </div>
+    </div>
+  </div>
+</div>
