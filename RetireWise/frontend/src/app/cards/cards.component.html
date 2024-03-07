@@ -4,22 +4,19 @@
   </div>
 </div>
 <div class="card-container grid grid-cols-4 gap-x-10 pl-10 pr-10">
-  <div
-    class="term-container grid grid-cols-subgrid"
-    *ngFor="let obj of termCards"
-  >
+  <div class="term-container grid grid-cols-subgrid" *ngFor="let obj of terms">
     <div
       class="term col-start-1 border rounded-lg"
-      (click)="termCardClicked(obj.id)"
+      (click)="termCardClicked(obj._id)"
     >
       <div
-        class="term-front term-side rounded-xl text-black border-solid border-black border-2 shadow-lg"
+        class="term-front term-side rounded-xl text-black border-solid border-black border-2 shadow-lg flex items-center justify-center"
         *ngIf="!obj.isFlipped"
       >
-        Term {{ obj.id }}
+        Term
       </div>
       <div
-        class="term-back term-side rounded-xl text-black border-solid border-black border-2 shadow-lg"
+        class="term-back term-side rounded-xl text-black border-solid border-black border-2 shadow-lg flex items-center justify-center"
         *ngIf="obj.isFlipped"
         [ngStyle]="{
           'background-color': obj.state === 'matched' ? 'green' : 'white'
@@ -31,36 +28,27 @@
   </div>
   <div
     class="definition-container grid grid-cols-subgrid"
-    *ngFor="let obj of definitionCards"
+    *ngFor="let obj of definitions"
   >
-    <div class="definition col-start-3" (click)="definitionCardClicked(obj.id)">
+    <div
+      class="definition col-start-3"
+      (click)="definitionCardClicked(obj._id)"
+    >
       <div
-        class="term-front term-side rounded-xl text-black border-solid border-black border-2 shadow-lg"
+        class="term-front term-side rounded-xl text-black border-solid border-black border-2 shadow-lg flex items-center justify-center"
         *ngIf="!obj.isFlipped"
       >
-        Definition {{ obj.id }}
+        Definition
       </div>
       <div
-        class="term-back term-side rounded-xl text-black border-solid border-black border-2 shadow-lg"
+        class="term-side rounded-xl text-black border-solid border-black border-2 shadow-lg flex items-center justify-center pl-2"
         *ngIf="obj.isFlipped"
         [ngStyle]="{
           'background-color': obj.state === 'matched' ? 'green' : 'white'
         }"
       >
-        {{ obj.definition }}
+        <div class="">{{ obj.definition }}</div>
       </div>
     </div>
   </div>
 </div>
-
-<!-- <div class="term-container" *ngFor="let obj of wordCards">
-  <div>
-    {{ obj.wordName }}
-  </div>
-</div> -->
-<!-- <div class="tp-wrapper">
-  <div class="tp-box" (click)="cardClicked()" [@cardFlip]="flip">
-    <div class="tp-box__side tp-box__front">Front</div>
-    <div class="tp-box__side tp-box__back">Back</div>
-  </div>
-</div> -->

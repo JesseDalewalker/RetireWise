@@ -11,7 +11,7 @@ export class UserService {
   private url = 'http://localhost:5200';
   private users$: Subject<User[]> = new Subject();
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   //GET crud operation for frontend
   getUsers(): Subject<User[]> {

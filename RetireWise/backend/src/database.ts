@@ -1,12 +1,17 @@
 import * as mongodb from "mongodb";
 import { User } from "./user";
 import { Module } from "./module";
+import { Term } from "./term";
+import { Definition } from "./definition";
 import { Video } from "./video";
 import { QuestionOptionsAnswer } from "./questionoptionsanswer";
+
 
 //Export all the collections here
 export const collections: {
   user?: mongodb.Collection<User>;
+  term?: mongodb.Collection<Term>;
+  definition?: mongodb.Collection<Definition>;
   module?: mongodb.Collection<Module>;
   video?: mongodb.Collection<Video>;
   questionoptionsanswer?: mongodb.Collection<QuestionOptionsAnswer>;
@@ -25,6 +30,12 @@ export async function connectToDatabase(uri: string) {
 
   const moduleCollection = db.collection<Module>("module");
   collections.module = moduleCollection;
+
+  const termCollection = db.collection<Term>("terms");
+  collections.term = termCollection;
+
+  const definitionCollection = db.collection<Definition>("definitions");
+  collections.definition = definitionCollection;
 
   const videoCollection = db.collection<Video>("video");
   collections.video = videoCollection;
@@ -91,6 +102,59 @@ async function applySchemaValidation(db: mongodb.Db) {
         videoID: {
           bsonType: "string",
           description: "'videoID' is required and is a string",
+        },
+      },
+    },
+  };
+
+  const termSchema = {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["definitionID", "isFlipped", "state", "wordName"],
+      additionalProperties: false,
+      properties: {
+        _id: {},
+        definitionID: {
+          bsonType: "string",
+          description: "'definitionID' is required and is a string",
+          minLength: 5,
+        },
+        isFlipped: {
+          bsonType: "boolean",
+          description: "'isFlipped' is required and is a boolean",
+        },
+        state: {
+          bsonType: "string",
+          description: "'state' is required and is a string",
+        },
+        wordName: {
+          bsonType: "string",
+          description: "'wordName' is required and is a string",
+        },
+
+      },
+    },
+  };
+
+  const definitionSchema = {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["definition", "isFlipped", "state"],
+      additionalProperties: false,
+      properties: {
+        _id: {},
+        definition: {
+          bsonType: "string",
+          description: "'definitionID' is required and is a string",
+          minLength: 5,
+        },
+        isFlipped: {
+          bsonType: "boolean",
+          description: "'isFlipped' is required and is a boolean",
+        },
+        state: {
+          bsonType: "string",
+          description: "'state' is required and is a string",
         },
       },
     },
