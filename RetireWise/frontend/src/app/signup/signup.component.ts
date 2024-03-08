@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { Subscription, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
@@ -17,6 +17,7 @@ import { throwError } from 'rxjs';
 
 export class SignupComponent {
   form: FormGroup = new FormGroup({});
+  submitSubscription: Subscription = new Subscription();
 
   constructor(private newForm: FormBuilder, private http:HttpClient, private router:Router) {}
 
@@ -36,10 +37,11 @@ export class SignupComponent {
     };
   
     const options = { headers: { 'Content-Type': 'application/json' } };
-    this.http.post('http://localhost:5200/users/', JSON.stringify(user), options).subscribe((res: any) => {
+    this.submitSubscription = this.http.post('http://localhost:5200/users/', JSON.stringify(user), options).subscribe((res: any) => {
       if (res.status === 201) {
         alert("Successful account creation.");
         // Redirect user to login page
+        console.log(res.status)
         this.router.navigateByUrl('/login');
       }
       catchError((error) => {
@@ -62,9 +64,14 @@ export class SignupComponent {
     return false;
   }
   
-
   //reset() function will reset (or erase) all current form information
   reset() {
     this.form.reset();
+  }
+
+  ngOnDestroy(): void {
+    if (this.submitSubscription) {
+      this.submitSubscription.unsubscribe();
+    }
   }
 }
