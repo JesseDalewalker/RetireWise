@@ -24,7 +24,7 @@
 .submit {
   width: 160px;
 
-  margin: auto;
+  /* margin: auto; */
   display: grid;
   place-items: center;
 }
