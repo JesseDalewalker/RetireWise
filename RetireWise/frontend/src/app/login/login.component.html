@@ -1,17 +1,45 @@
-<div class="signup">
+<div class="flex-col pt-20">
+  <div class="signup">
     <!-- Add comments later -->
-    <form [formGroup]="form" (ngSubmit)="submit()" >
-        <!-- -->
-        <input type="text" placeholder="Email" formControlName="email" required />
-        <!-- -->
-        <input type="password" placeholder="Password" formControlName="password" required />
-        <!-- -->
-        <button class="submit" (click)="reset()">Reset</button>
-        <!-- -->
-        <button class="submit" (click)="submit()">Submit</button>
+    <form
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+      class="py-10 px-7 bg-[#f6f0ea]"
+    >
+      <!-- -->
+      <input
+        type="text"
+        placeholder="Email"
+        formControlName="email"
+        required
+        class="w-full rounded-lg border-[#689067] px-1 border-2 bg-[#f6f0ea] focus:outline-[#689067] placeholder-[#689067]"
+      />
+      <!-- -->
+      <input
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+        required
+        class="mb-5 mt-2 w-full rounded-lg border-[#689067] px-1 border-2 bg-[#f6f0ea] focus:outline-[#689067] placeholder-[#689067] text-[#689067]"
+      />
+      <!-- -->
+      <button
+        class="submit border rounded-lg bg-[#689067] text-white"
+        (click)="reset()"
+      >
+        Reset
+      </button>
+      <!-- -->
+      <button
+        class="submit border rounded-lg bg-[#689067] text-white"
+        (click)="submit()"
+      >
+        Submit
+      </button>
     </form>
-</div>
-<br>
-<button (click)="navigateToSignUp()" class="signup">
+  </div>
+  <br />
+  <button (click)="navigateToSignUp()" class="signup text-white">
     New User?
-</button>
+  </button>
+</div>
