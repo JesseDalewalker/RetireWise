@@ -1,4 +1,4 @@
-<div class="flex gap-x-10 h-auto">
+<div class="flex gap-x-10 h-60">
   <div class="mt-5 ml-5 border-2 border-[#689067] py-3 px-3 rounded-lg">
     <div id="proBanner">
       <div class="pb-2">Add New Category:</div>
@@ -111,7 +111,7 @@
     </div>
   </div>
   <div
-    class="border-2 border-[#689067] py-3 px-3 rounded-lg flex-1 mt-5 mr-4 overscroll-auto"
+    class="border-2 border-[#689067] py-3 px-3 rounded-lg flex-1 mt-5 mr-4 overflow-scroll"
   >
     <div class="card-title px-4">List of Expenses:</div>
     <div class="card">
@@ -132,7 +132,7 @@
               <td>{{ expense.category }}</td>
               <td>{{ expense.date }}</td>
               <td>{{ expense.amount }}</td>
-              <div
+              <!-- <div
                 class="btn-group mb-4"
                 role="group"
                 aria-button="Basic example"
@@ -143,7 +143,7 @@
                 <button type="button" class="btn btn-primary btn-sm">
                   <i class="mdi mdi-table-edit"></i>
                 </button>
-              </div>
+              </div> -->
             </tr>
           </tbody>
         </table>

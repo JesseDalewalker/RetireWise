@@ -12,48 +12,26 @@ import { CommonModule } from '@angular/common';
 export class CalculatorComponent {
   expenses: Expense[] = [{
     id: 1,
-    expense: "Kroger",
-    category: "Groceries",
+    expense: "Mortgage Payment",
+    category: "Mortgage",
     date: "3/8/2024",
-    amount: 132.45
+    amount: 2163.00
 
   },
   {
     id: 2,
-    expense: "McDonalds",
-    category: "Dining",
+    expense: "Electric",
+    category: "Utilities",
     date: "3/2/2024",
-    amount: 7.34
+    amount: 134.54
   },
   {
-    id: 1,
-    expense: "Kroger",
-    category: "Groceries",
+    id: 3,
+    expense: "Gas",
+    category: "Transportation",
     date: "3/8/2024",
-    amount: 132.45
+    amount: 46.32
 
-  },
-  {
-    id: 2,
-    expense: "McDonalds",
-    category: "Dining",
-    date: "3/2/2024",
-    amount: 7.34
-  },
-  {
-    id: 1,
-    expense: "Kroger",
-    category: "Groceries",
-    date: "3/8/2024",
-    amount: 132.45
-
-  },
-  {
-    id: 2,
-    expense: "McDonalds",
-    category: "Dining",
-    date: "3/2/2024",
-    amount: 7.34
   },
   ]
 
