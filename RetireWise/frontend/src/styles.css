@@ -16,3 +16,7 @@
 .slick-next:before {
   color: black in !important;
 }
+
+body {
+  background-color: #f6f0ea;
+}

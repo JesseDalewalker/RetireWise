@@ -1,30 +1,30 @@
 /* Effects this HTML element's CSS */
-form {
-    width: 300px;
+/* form {
+  width: 300px;
 
-    margin: auto;
-    display: grid;
-    place-items: center; 
+  margin: auto;
+  display: grid;
+  place-items: center;
 }
 
 /* Effects all CSS for class="signup" */
 .signup {
+  border: 2px solid #689067;
+  border-radius: 10px;
+  /* background-color: #689067; */
 
-    border: 2px solid #333;
-    border-radius: 10px;
+  width: 300px;
 
-    width: 300px;
-
-    margin: auto;
-    display: grid;
-    place-items: center; 
+  margin: auto;
+  display: grid;
+  place-items: center;
 }
 
 /* Effects all CSS for class="submit" */
 .submit {
-    width: 160px;
+  width: 160px;
 
-    margin: auto;
-    display: grid;
-    place-items: center; 
+  /* margin: auto; */
+  display: grid;
+  place-items: center;
 }
