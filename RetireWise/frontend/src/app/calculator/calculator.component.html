@@ -1,1 +1,153 @@
-<p>calculator works!</p>
+<div class="flex gap-x-10 h-auto">
+  <div class="mt-5 ml-5 border-2 border-[#689067] py-3 px-3 rounded-lg">
+    <div id="proBanner">
+      <div class="pb-2">Add New Category:</div>
+      <input
+        type="text"
+        formControlName="category"
+        class="form-control mr-sm-2 border-[#689067] border-2 rounded-lg pl-1 bg-[#f6f0ea]"
+        id="inlineFormInputCategory"
+        placeholder="New Category"
+      />
+      <label for="inlineFormInputCategory" class="sr-only">Category</label>
+      <button
+        class="btn btn-gradient-primary mx-2 border px-2 border-[#689067] bg-[#689067] rounded-lg"
+        type="submit"
+      >
+        Save
+      </button>
+    </div>
+
+    <hr />
+    <div class="row">
+      <div class="col-md-4 stretch-card grid-margin">
+        <div class="card bg-default">
+          <div class="card-body">
+            <button class="btn btn-default btn-sm text-danger float-right">
+              <i class="mdi mdi-delete-forever mdi-24px"></i>
+            </button>
+            <p class="font-weight-normal mb-3 text-secondary underline pt-2">
+              Category
+            </p>
+            <p>test</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expenses -->
+  <div class="mt-5 border-2 border-[#689067] py-3 px-3 rounded-lg">
+    <div class="col-12">
+      <h4 class="card-title">Save Expense:</h4>
+      <span class="d-flex align-items-center purchase-popup">
+        <form class="form-inline mt-3">
+          <!-- this is a hidden input, that used to reference an expense by id -->
+          <input
+            type="text"
+            formControlName="id"
+            class="form-control mb-2 mr-sm-2"
+            id="inlineFormInputExpense"
+            placeholder="id"
+            hidden
+          />
+          <label for="inlineFormInputExpense" class="sr-only">Expense</label>
+          <input
+            type="text"
+            formControlName="expense"
+            class="form-control mb-2 mr-sm-2 border-[#689067] border-2 rounded-lg pl-1 bg-[#f6f0ea]"
+            id="inlineFormInputExpense"
+            placeholder="Expense"
+            required
+          />
+          <select
+            formControlName="category"
+            class="form-control mb-2 mr-sm-2 border-[#689067] border-2 rounded-lg pl-1 bg-[#f6f0ea]"
+          >
+            <option selected disabled>Choose a Category</option>
+            <option>option</option>
+          </select>
+
+          <label class="sr-only" for="inlineFormInputExpense">Date</label>
+          <input
+            type="date"
+            formControlName="date"
+            class="form-control mb-2 mr-sm-2 mx-2 border-[#689067] border-2 rounded-lg pl-1 bg-[#f6f0ea]"
+            id="inlineFormInputExpense"
+            placeholder="Date"
+            required
+          />
+
+          <label for="inlineFormInputExpense" class="sr-only">Amount</label>
+          <input
+            type="number"
+            formControlName="amount"
+            class="form-control mb-2 mr-sm-2 mx-2 border-[#689067] border-2 rounded-lg pl-1 bg-[#f6f0ea]"
+            id="inlineFormInputExpense"
+            placeholder="Amount"
+            required
+          />
+
+          <div
+            class="btn-group mb-2 mt-2"
+            role="group"
+            aria-label="Basic example"
+          >
+            <button
+              class="btn btn-gradient-primary border px-2 border-[#689067] bg-[#689067] rounded-lg ml-3"
+              type="submit"
+            >
+              Save
+            </button>
+            <button
+              class="btn btn-gradient-primary border px-2 border-[#689067] bg-[#689067] rounded-lg ml-3"
+              type="reset"
+            >
+              Reset
+            </button>
+          </div>
+        </form>
+      </span>
+    </div>
+  </div>
+  <div
+    class="border-2 border-[#689067] py-3 px-3 rounded-lg flex-1 mt-5 mr-4 overscroll-auto"
+  >
+    <div class="card-title px-4">List of Expenses:</div>
+    <div class="card">
+      <div class="card-body">
+        <table class="border-separate [border-spacing:1rem]">
+          <thead>
+            <tr>
+              <th>Expense</th>
+              <th>Category</th>
+              <th>Date</th>
+              <th>Amount ($)</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let expense of expenses">
+              <td>{{ expense.expense }}</td>
+              <td>{{ expense.category }}</td>
+              <td>{{ expense.date }}</td>
+              <td>{{ expense.amount }}</td>
+              <div
+                class="btn-group mb-4"
+                role="group"
+                aria-button="Basic example"
+              >
+                <button type="button" class="btn btn-danger btn-sm">
+                  <i class="mdi mdi-delete forever"></i>
+                </button>
+                <button type="button" class="btn btn-primary btn-sm">
+                  <i class="mdi mdi-table-edit"></i>
+                </button>
+              </div>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
