@@ -16,7 +16,7 @@ import { QuestionOptionsAnswerService } from '../questionoptionsanswer.service';
 
 export class VideoAndQuizzesComponent {
 
-  videos: any[] = [];
+  videos: any[] = ["hv4Ou9DMsV8","hv4Ou9DMsV8","hv4Ou9DMsV8","hv4Ou9DMsV8","hv4Ou9DMsV8"];
   quizzes: any[] = [];
 
   private videoSubscription: Subscription = new Subscription();
@@ -30,7 +30,7 @@ export class VideoAndQuizzesComponent {
   currentVideoAndQuizPageID!: number;
   currentVideoID: string;
 
-  //videoID is the everything after watch?v= in a YouTube video 
+  //videoID is the everything after watch?v= in a YouTube video
   //(Ex. https://www.youtube.com/watch?v=vStru2voDjY, vStru2voDjY is the ID)
   videoURL!: SafeResourceUrl;
 
@@ -42,12 +42,12 @@ export class VideoAndQuizzesComponent {
 
     const url = this.router.url;
 
-    const match = url.match(/\/module\/(\d+)/); 
+    const match = url.match(/\/module\/(\d+)/);
     if (match) {
       this.currentModuleId = +match[1];
     }
 
-    const videoMatch = url.match(/\/videoandquizzes\/(\d+)/); 
+    const videoMatch = url.match(/\/videoandquizzes\/(\d+)/);
     if (videoMatch) {
       this.currentVideoAndQuizPageID = +videoMatch[1];
     }
@@ -110,7 +110,7 @@ export class VideoAndQuizzesComponent {
       }
     );
   }
-  
+
   //Unsubscribes from the backend upon leaving the home component page, which prevents multiple unnecessary backend calls
   ngOnDestroy(): void {
     if (this.videoSubscription) {
