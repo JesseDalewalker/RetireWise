@@ -5,6 +5,7 @@ import { Term } from "./term";
 import { Definition } from "./definition";
 import { Video } from "./video";
 import { QuestionOptionsAnswer } from "./questionoptionsanswer";
+import { Expense } from "./expense";
 
 
 //Export all the collections here
@@ -14,6 +15,7 @@ export const collections: {
   definition?: mongodb.Collection<Definition>;
   module?: mongodb.Collection<Module>;
   video?: mongodb.Collection<Video>;
+  expense?: mongodb.Collection<Expense>;
   questionoptionsanswer?: mongodb.Collection<QuestionOptionsAnswer>;
 } = {};
 
@@ -24,7 +26,7 @@ export async function connectToDatabase(uri: string) {
 
   const db = client.db("LearningApp");
   await applySchemaValidation(db);
- 
+
   const userCollection = db.collection<User>("user");
   collections.user = userCollection;
 
@@ -42,6 +44,9 @@ export async function connectToDatabase(uri: string) {
 
   const questionoptionsanswerCollection = db.collection<QuestionOptionsAnswer>("questionoptionsanswer");
   collections.questionoptionsanswer = questionoptionsanswerCollection;
+
+  const expenseCollection = db.collection<Expense>("expense");
+  collections.expense = expenseCollection;
 }
 
 async function applySchemaValidation(db: mongodb.Db) {
@@ -194,23 +199,56 @@ async function applySchemaValidation(db: mongodb.Db) {
     },
   };
 
+  const expenseSchema = {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["expense", "category", "date", "amount"],
+      additionalProperties: false,
+      properties: {
+        _id: {},
+        expense: {
+          bsonType: "string",
+          description: "'expense' is required and is a string",
+          minLength: 2,
+        },
+        category: {
+          bsonType: "string",
+          description: "'isFlipped' is required and is a string",
+        },
+        date: {
+          bsonType: "string",
+          description: "'date' is required and is a string",
+        },
+        amount: {
+          bsonType: "number",
+          description: "'amount' is required and is a string",
+        },
+      },
+    },
+  };
+
   const userCollectionExists = await db.listCollections({ name: "user" }).hasNext();
   if (!userCollectionExists) {
-      await db.createCollection("user", { validator: userSchema });
+    await db.createCollection("user", { validator: userSchema });
   }
 
   const moduleCollectionExists = await db.listCollections({ name: "module" }).hasNext();
   if (!moduleCollectionExists) {
-      await db.createCollection("module", { validator: moduleSchema });
+    await db.createCollection("module", { validator: moduleSchema });
   }
 
   const videoCollectionExists = await db.listCollections({ name: "video" }).hasNext();
   if (!videoCollectionExists) {
-      await db.createCollection("video", { validator: videoSchema });
+    await db.createCollection("video", { validator: videoSchema });
   }
 
   const questionoptionsanswerCollectionExists = await db.listCollections({ name: "questionoptionsanswer" }).hasNext();
   if (!questionoptionsanswerCollectionExists) {
-      await db.createCollection("questionoptionsanswer", { validator: questionoptionsanswerSchema });
+    await db.createCollection("questionoptionsanswer", { validator: questionoptionsanswerSchema });
+  }
+
+  const expenseCollectionExists = await db.listCollections({ name: "expense" }).hasNext();
+  if (!userCollectionExists) {
+    await db.createCollection("expense", { validator: expenseSchema });
   }
 }

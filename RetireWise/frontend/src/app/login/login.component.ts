@@ -4,10 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
-import { firstValueFrom } from 'rxjs';
+import { Subscription, throwError } from 'rxjs';
+import { TokenService } from '../token.service';
 
 @Component({
   selector: 'app-login',
@@ -19,8 +18,9 @@ import { firstValueFrom } from 'rxjs';
 
 export class LoginComponent {
   form: FormGroup = new FormGroup({});
+  submitSubscription: Subscription = new Subscription();
 
-  constructor(private newForm: FormBuilder, private http:HttpClient, private router: Router){}
+  constructor(private newForm: FormBuilder, private http:HttpClient, private router: Router, private tokenService: TokenService){}
 
   //Initializes a new form with input validation for each variable
   ngOnInit() {
@@ -38,11 +38,12 @@ export class LoginComponent {
     };
   
     const options = { headers: { 'Content-Type': 'application/json' } };
-    this.http.post('http://localhost:5200/users/login', JSON.stringify(user), options).subscribe((res: any) => {
+    this.submitSubscription = this.http.post('http://localhost:5200/users/login', JSON.stringify(user), options).subscribe((res: any) => {
       if (res.status === 200) {
-        alert("Successful login.");
+        this.tokenService.setToken(res.token);
         // Redirect user to home page
         this.router.navigateByUrl('/home');
+        alert("Successful login.");
       }
       catchError((error) => {
         if (error.status === 404) {
@@ -72,5 +73,11 @@ export class LoginComponent {
   //Navigates to the signup page
   navigateToSignUp() {
     this.router.navigate(['/signup']);
+  }
+
+  ngOnDestroy(): void {
+    if (this.submitSubscription) {
+      this.submitSubscription.unsubscribe();
+    }
   }
 }
