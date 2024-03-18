@@ -8,6 +8,7 @@ import { termRouter } from "./terms.routes";
 import { definitionRouter } from "./definitions.routes";
 import { videoRouter } from "./video.routes";
 import { questionoptionsanswerRouter } from "./questionoptionsanswer.routes";
+import { expenseRouter } from "./expense.routes";
 
 // Load environment variables from the .env file, where the ATLAS_URI is configured
 dotenv.config();
@@ -31,6 +32,7 @@ connectToDatabase(ATLAS_URI)
     app.use("/definitions", definitionRouter)
     app.use("/videos", videoRouter);
     app.use("/questionoptionsanswer", questionoptionsanswerRouter);
+    app.use("/expense", expenseRouter)
 
     // start the Express server
     app.listen(5200, () => {
