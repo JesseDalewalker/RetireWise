@@ -216,11 +216,11 @@ async function applySchemaValidation(db: mongodb.Db) {
           description: "'isFlipped' is required and is a string",
         },
         date: {
-          bsonType: "string",
-          description: "'date' is required and is a string",
+          bsonType: "date",
+          description: "'date' is required and is a date",
         },
         amount: {
-          bsonType: "number",
+          bsonType: "double",
           description: "'amount' is required and is a string",
         },
       },
@@ -248,7 +248,7 @@ async function applySchemaValidation(db: mongodb.Db) {
   }
 
   const expenseCollectionExists = await db.listCollections({ name: "expense" }).hasNext();
-  if (!userCollectionExists) {
+  if (!expenseCollectionExists) {
     await db.createCollection("expense", { validator: expenseSchema });
   }
 }
