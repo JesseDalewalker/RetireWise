@@ -6,5 +6,5 @@ export interface Expense {
     category: string;
     date: string;
     amount: number;
-    user: string;
+    // user: string;
 }
