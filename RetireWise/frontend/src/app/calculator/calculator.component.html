@@ -4,7 +4,6 @@
       <div class="pb-2">Add New Category:</div>
       <input
         type="text"
-        formControlName="category"
         class="form-control mr-sm-2 border-[#689067] border-2 rounded-lg pl-1 bg-[#f6f0ea]"
         id="inlineFormInputCategory"
         placeholder="New Category"
@@ -41,16 +40,20 @@
     <div class="col-12">
       <h4 class="card-title">Save Expense:</h4>
       <span class="d-flex align-items-center purchase-popup">
-        <form class="form-inline mt-3">
+        <form
+          class="form-inline mt-3"
+          [formGroup]="expenseForm"
+          (ngSubmit)="submit()"
+        >
           <!-- this is a hidden input, that used to reference an expense by id -->
-          <input
+          <!-- <input
             type="text"
             formControlName="id"
             class="form-control mb-2 mr-sm-2"
             id="inlineFormInputExpense"
             placeholder="id"
             hidden
-          />
+          /> -->
           <label for="inlineFormInputExpense" class="sr-only">Expense</label>
           <input
             type="text"
@@ -96,6 +99,7 @@
             <button
               class="btn btn-gradient-primary border px-2 border-[#689067] bg-[#689067] rounded-lg ml-3"
               type="submit"
+              (click)="submit()"
             >
               Save
             </button>
