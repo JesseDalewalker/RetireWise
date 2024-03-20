@@ -88,9 +88,36 @@ userRouter.post("/login", async (req, res) => {
     } catch (error) {
       res.status(500).json({ message: "Internal server error." });
     }
-  });
+});
   
-  
+// POST route for token validation
+userRouter.post("/validate", async (req, res) => {
+  try {
+    const { token } = req.body;
+
+    if (!token) {
+      return res.status(400).json({ message: "Token is missing." });
+    }
+
+    jwt.verify(token, process.env.JWT_SECRET, async (err: any, decoded: any) => {
+      if (err) {
+        return res.status(401).json({ message: "Invalid token." });
+      }
+
+      const queryFilter = { _id: new mongodb.ObjectId(decoded.userId) };
+
+      const userCount = await collections.user.countDocuments(queryFilter);
+
+      if (userCount != 1) {
+        return res.status(401).json({ message: "Fake JWT token." });
+      }
+
+      return res.status(200).json({ message: "Token is valid." });
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error." });
+  }
+});
 
 //PUT (UPDATE) ONE user BY ID
 userRouter.put("/:id", async (req, res) => {
