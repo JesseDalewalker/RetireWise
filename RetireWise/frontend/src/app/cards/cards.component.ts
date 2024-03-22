@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { TermService } from '../term.service';
 import { DefinitionService } from '../definition.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class CardsComponent {
 
   private subscription: Subscription = new Subscription();
   private newsubscription: Subscription = new Subscription();
-  constructor(private termService: TermService, private definitionService: DefinitionService) { }
+  constructor(private termService: TermService, private definitionService: DefinitionService, private router: Router) { }
 
   ngOnInit(): void {
     this.subscription = this.termService.getTerms().subscribe(
@@ -65,7 +66,10 @@ export class CardsComponent {
   }
 
   resetCards(termCardArray: TermCard[], definitionCardArray: DefinitionCard[]) {
-    let count: number = 0;
+
+    console.log("Router defined:", this.router);
+    let flippedCardCount: number = 0;
+    let matchedCardCount: number = 0;
     let termCardId: string | undefined = "d";
     let definitionCardId: string | undefined = "s";
 
@@ -73,21 +77,30 @@ export class CardsComponent {
     definitionCardArray.forEach(function (definition) {
       if (definition.isFlipped === true && definition.state === 'default') {
         definitionCardId = definition._id;
-        count += 1;
+        flippedCardCount += 1;
+      }
+      if (definition.state === 'matched') {
+        matchedCardCount += 1;
       }
     });
     termCardArray.forEach(function (term) {
       if (term.isFlipped === true && term.state === 'default') {
         termCardId = term.definitionID;
-        count += 1;
+        flippedCardCount += 1;
       }
     });
+
+    if (matchedCardCount === definitionCardArray.length) {
+      alert("Congratulations, you matched all the cards!");
+      this.router.navigateByUrl("/home");
+
+    }
     console.log(termCardId + "  " + definitionCardId);
     /* if two or more cards total are flipped over and they are not a match, flip them back
        over. If they are a match they will stay flipped to show the name of the term and
        the definition
     */
-    if (count >= 2) {
+    if (flippedCardCount >= 2) {
       if (termCardId === definitionCardId) {
         console.log('here')
         definitionCardArray.forEach(function (definition) {
