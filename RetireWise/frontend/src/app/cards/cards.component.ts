@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, NgZone, OnInit } from '@angular/core';
 import { TermCard, DefinitionCard } from '../cards/types'
 import { Definition } from '../../../../backend/src/definition';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { TermService } from '../term.service';
 import { DefinitionService } from '../definition.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 
 @Component({
   selector: 'app-cards',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './cards.component.html',
   styleUrl: './cards.component.css',
 })
@@ -22,7 +22,14 @@ export class CardsComponent {
 
   private subscription: Subscription = new Subscription();
   private newsubscription: Subscription = new Subscription();
-  constructor(private termService: TermService, private definitionService: DefinitionService, private router: Router) { }
+  constructor(private termService: TermService, private definitionService: DefinitionService, private router: Router, private ngZone: NgZone) { }
+
+  // ngAfterViewInit(): void {
+  //   // Your navigation logic
+  //   this.ngZone.run(() => {
+  //     this.router.navigateByUrl('/home');
+  //   });
+  // }
 
   ngOnInit(): void {
     this.subscription = this.termService.getTerms().subscribe(
@@ -87,12 +94,6 @@ export class CardsComponent {
         flippedCardCount += 1;
       }
     });
-
-    if (matchedCardCount === definitionCardArray.length) {
-      alert("Congratulations, you matched all the cards!");
-      this.router.navigateByUrl("/home");
-
-    }
 
     /* if two or more cards total are flipped over and they are not a match, flip them back
        over. If they are a match they will stay flipped to show the name of the term and
@@ -178,6 +179,23 @@ export class CardsComponent {
     return 0;
   }
 
+  allMatched(termCardArray: TermCard[]) {
+    let matchedCardCount: number = 0
+
+    termCardArray.forEach(function (term) {
+      if (term.state === 'matched') {
+        matchedCardCount += 1
+      }
+    })
+
+    if (matchedCardCount === termCardArray.length) {
+      alert("Congratulations, you matched all the cards!");
+      this.router.navigateByUrl('/home')
+    }
+    else {
+      alert("Please match all the cards.")
+    }
+  }
 
   //Unsubscribes from the backend upon leaving the home component page, which prevents multiple unnecessary backend calls
   ngOnDestroy(): void {
