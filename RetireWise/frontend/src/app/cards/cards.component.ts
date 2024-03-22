@@ -46,8 +46,6 @@ export class CardsComponent {
     );
   }
 
-  flip: string = 'inactive';
-
   /* Checks to make sure only one term and one definition are allowed to be turned over
      at the same time.*/
   cardTurnOverCheck(array: TermCard[] | DefinitionCard[]): boolean | undefined {
@@ -95,21 +93,21 @@ export class CardsComponent {
       this.router.navigateByUrl("/home");
 
     }
-    console.log(termCardId + "  " + definitionCardId);
+
     /* if two or more cards total are flipped over and they are not a match, flip them back
        over. If they are a match they will stay flipped to show the name of the term and
        the definition
     */
     if (flippedCardCount >= 2) {
       if (termCardId === definitionCardId) {
-        console.log('here')
+
         definitionCardArray.forEach(function (definition) {
           if (definition._id === definitionCardId) {
             definition.state = 'matched';
           }
         });
         termCardArray.forEach(function (term) {
-          console.log('here')
+
           if (term.definitionID === termCardId) {
             term.state = 'matched';
           }
@@ -138,7 +136,6 @@ export class CardsComponent {
       if (definition._id === id) {
         if (definition.isFlipped === false) {
           definition.isFlipped = true;
-          console.log(definition.definition);
         } else if (definition.state === 'matched') {
           definition.isFlipped = true;
         } else {
@@ -165,7 +162,6 @@ export class CardsComponent {
       if (term._id === id) {
         if (term.isFlipped === false) {
           term.isFlipped = true;
-          console.log(term.state + ' ' + term.wordName);
         } else if (term.state === 'matched') {
           term.isFlipped = true;
         } else {
