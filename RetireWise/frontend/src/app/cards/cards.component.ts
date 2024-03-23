@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, NgZone, OnInit } from '@angular/core';
 import { TermCard, DefinitionCard } from '../cards/types'
 import { Definition } from '../../../../backend/src/definition';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { TermService } from '../term.service';
 import { DefinitionService } from '../definition.service';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 
 @Component({
   selector: 'app-cards',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './cards.component.html',
   styleUrl: './cards.component.css',
 })
@@ -21,7 +22,14 @@ export class CardsComponent {
 
   private subscription: Subscription = new Subscription();
   private newsubscription: Subscription = new Subscription();
-  constructor(private termService: TermService, private definitionService: DefinitionService) { }
+  constructor(private termService: TermService, private definitionService: DefinitionService, private router: Router, private ngZone: NgZone) { }
+
+  // ngAfterViewInit(): void {
+  //   // Your navigation logic
+  //   this.ngZone.run(() => {
+  //     this.router.navigateByUrl('/home');
+  //   });
+  // }
 
   ngOnInit(): void {
     this.subscription = this.termService.getTerms().subscribe(
@@ -45,8 +53,6 @@ export class CardsComponent {
     );
   }
 
-  flip: string = 'inactive';
-
   /* Checks to make sure only one term and one definition are allowed to be turned over
      at the same time.*/
   cardTurnOverCheck(array: TermCard[] | DefinitionCard[]): boolean | undefined {
@@ -65,7 +71,10 @@ export class CardsComponent {
   }
 
   resetCards(termCardArray: TermCard[], definitionCardArray: DefinitionCard[]) {
-    let count: number = 0;
+
+    console.log("Router defined:", this.router);
+    let flippedCardCount: number = 0;
+    let matchedCardCount: number = 0;
     let termCardId: string | undefined = "d";
     let definitionCardId: string | undefined = "s";
 
@@ -73,30 +82,33 @@ export class CardsComponent {
     definitionCardArray.forEach(function (definition) {
       if (definition.isFlipped === true && definition.state === 'default') {
         definitionCardId = definition._id;
-        count += 1;
+        flippedCardCount += 1;
+      }
+      if (definition.state === 'matched') {
+        matchedCardCount += 1;
       }
     });
     termCardArray.forEach(function (term) {
       if (term.isFlipped === true && term.state === 'default') {
         termCardId = term.definitionID;
-        count += 1;
+        flippedCardCount += 1;
       }
     });
-    console.log(termCardId + "  " + definitionCardId);
+
     /* if two or more cards total are flipped over and they are not a match, flip them back
        over. If they are a match they will stay flipped to show the name of the term and
        the definition
     */
-    if (count >= 2) {
+    if (flippedCardCount >= 2) {
       if (termCardId === definitionCardId) {
-        console.log('here')
+
         definitionCardArray.forEach(function (definition) {
           if (definition._id === definitionCardId) {
             definition.state = 'matched';
           }
         });
         termCardArray.forEach(function (term) {
-          console.log('here')
+
           if (term.definitionID === termCardId) {
             term.state = 'matched';
           }
@@ -125,7 +137,6 @@ export class CardsComponent {
       if (definition._id === id) {
         if (definition.isFlipped === false) {
           definition.isFlipped = true;
-          console.log(definition.definition);
         } else if (definition.state === 'matched') {
           definition.isFlipped = true;
         } else {
@@ -152,7 +163,6 @@ export class CardsComponent {
       if (term._id === id) {
         if (term.isFlipped === false) {
           term.isFlipped = true;
-          console.log(term.state + ' ' + term.wordName);
         } else if (term.state === 'matched') {
           term.isFlipped = true;
         } else {
@@ -169,6 +179,23 @@ export class CardsComponent {
     return 0;
   }
 
+  allMatched(termCardArray: TermCard[]) {
+    let matchedCardCount: number = 0
+
+    termCardArray.forEach(function (term) {
+      if (term.state === 'matched') {
+        matchedCardCount += 1
+      }
+    })
+
+    if (matchedCardCount === termCardArray.length) {
+      alert("Congratulations, you matched all the cards!");
+      this.router.navigateByUrl('/module')
+    }
+    else {
+      alert("Please match all the cards.")
+    }
+  }
 
   //Unsubscribes from the backend upon leaving the home component page, which prevents multiple unnecessary backend calls
   ngOnDestroy(): void {

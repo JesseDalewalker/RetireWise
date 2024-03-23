@@ -1,46 +1,49 @@
 <br/>
 
 <!-- Side Dongle Code -->
-
 <div class="side-container">
   <div class="side-dongle">
     <!-- Dynamically generate all the VideoAndQuizzes links in this module -->
     <p>Module {{ currentModuleId }}</p>
     <ul>
-      <li *ngFor="let module of modules">
-        <a [routerLink]="['/module', currentModuleId, 'videoandquizzes', module]">Video And Quiz {{ module }}</a>
+      <li *ngFor="let module of numOfVidQuizPages">
+        <a [routerLink]="['/module', currentModuleId, 'videoandquizzes', module]" (click)=reloadComponent(module)>Video And Quiz {{ module }}</a>
       </li>
     </ul>
   </div>
 </div>
 
+<!-- Video and Quiz Code -->
+<!-- TODO - Change the ngIf to be based on if the current page has a videoID in the database -->
+<ng-container *ngIf="totalVideoAndQuizPageMatches > 0">
+  <!-- Embedded YouTube video -->
+  <iframe [src]="videoURL" frameborder="0"></iframe>
 
-<!-- Embedded YouTube video -->
-<iframe [src]="videoURL" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-<!-- Adds space (breaks) between video and quiz -->
-<br/>
-<br/>
+  <!-- Adds space breaks between video and quiz -->
+  <br/>
+  <br/>
 
 <!-- Displays quiz questions and options -->
-
-<div *ngFor="let question of questions; let i = index">
-  <div class="multiple-c">
-    <p>{{ question }}</p>
+  <div *ngFor="let quiz of quizzes; let i = index">
+    <div class="multiple-c">
+      <p>{{ quiz.question }}</p>
       <ul>
-        <li *ngFor="let option of options[i][1]; let j = index"
-        (click)="onSelectOption(option, i)"
-        [class.selected]="selectedOptions[i] === option"
+        <li *ngFor="let option of quiz.options"
+            (click)="onSelectOption(option, i)"
+            [class.selected]="selectedOptions[i] === option"
+            [class.correct]="selectedOptions[i] === option && selectedOptions[i] === quiz.answer"
+            [class.incorrect]="selectedOptions[i] === option && selectedOptions[i] !== quiz.answer"
         >
           {{ option }}
         </li>
       </ul>
+    </div>
+    <br/>
   </div>
-  <br/>
-</div>
+
+</ng-container>
 
 <!-- Button that navigates to matching card game page -->
-
 <div>
   <button (click)="navigateToCards()" class="buttons">
     Matching Card Game
