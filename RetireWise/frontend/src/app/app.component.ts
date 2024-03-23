@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { TokenService } from './token.service';
+import { first } from 'rxjs';
+
 
 @Component({
   selector: 'app-root',
@@ -11,10 +15,27 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RouterLinkActive,
     FormsModule,
     ReactiveFormsModule,
+    CommonModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
+
 export class AppComponent {
-  title = 'RetireWise';
+  loggedIn: boolean;
+
+  constructor(private tokenService: TokenService) {
+    this.loggedIn = false;
+  }
+
+  ngOnInit() {
+    this.tokenService.getToken().pipe(first()).subscribe((tokenCheck: boolean) => {
+      this.loggedIn = tokenCheck
+    });
+  }
+
+  logout() {
+    this.tokenService.removeToken();
+    window.location.href = '/home';
+  }
 }

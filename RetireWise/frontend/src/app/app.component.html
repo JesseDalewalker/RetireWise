@@ -15,14 +15,23 @@
       >
         Budget Calculator
       </button>
-      <div class="flex-1"></div>
+      <div class="flex-1"></div>  
       <button
         routerLink="/login"
         routerLinkActive="active"
         class="buttons"
         id="login-button"
+        *ngIf="!loggedIn"
       >
         Login
+      </button>
+      <button
+        class="buttons"
+        id="logout-button"
+        *ngIf="loggedIn"
+        (click)="logout()"
+      >
+        Logout
       </button>
     </div>
   </div>
