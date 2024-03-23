@@ -190,7 +190,7 @@ export class CardsComponent {
 
     if (matchedCardCount === termCardArray.length) {
       alert("Congratulations, you matched all the cards!");
-      this.router.navigateByUrl('/home')
+      this.router.navigateByUrl('/module')
     }
     else {
       alert("Please match all the cards.")
