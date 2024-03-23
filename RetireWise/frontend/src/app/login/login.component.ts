@@ -41,9 +41,9 @@ export class LoginComponent {
     this.submitSubscription = this.http.post('http://localhost:5200/users/login', JSON.stringify(user), options).subscribe((res: any) => {
       if (res.status === 200) {
         this.tokenService.setToken(res.token);
-        // Redirect user to home page
-        this.router.navigateByUrl('/home');
         alert("Successful login.");
+        // Redirect user to home page
+        window.location.href = '/home';
       }
       catchError((error) => {
         if (error.status === 404) {

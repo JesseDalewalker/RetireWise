@@ -96,12 +96,12 @@ userRouter.post("/validate", async (req, res) => {
     const { token } = req.body;
 
     if (!token) {
-      return res.status(400).json({ message: "Token is missing." });
+      return res.status(400).json({ message: "Token is missing.", status: false });
     }
 
     jwt.verify(token, process.env.JWT_SECRET, async (err: any, decoded: any) => {
       if (err) {
-        return res.status(401).json({ message: "Invalid token." });
+        return res.status(401).json({ message: "Invalid token.", status: false });
       }
 
       const queryFilter = { _id: new mongodb.ObjectId(decoded.userId) };
@@ -109,13 +109,13 @@ userRouter.post("/validate", async (req, res) => {
       const userCount = await collections.user.countDocuments(queryFilter);
 
       if (userCount != 1) {
-        return res.status(401).json({ message: "Fake JWT token." });
+        return res.status(401).json({ message: "Fake JWT token.", status: false });
       }
 
-      return res.status(200).json({ message: "Token is valid." });
+      return res.status(200).json({ message: "Token is valid.", status: true });
     });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error." });
+    res.status(500).json({ message: "Internal server error.", status: false });
   }
 });
 

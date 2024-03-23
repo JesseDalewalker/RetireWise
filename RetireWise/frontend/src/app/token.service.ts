@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
@@ -17,21 +17,10 @@ export class TokenService {
     this.cookieService.set('jwtToken', token);
   }
 
-  getToken(): Observable<string | null> {
+  getToken(): Observable<boolean> {
     return this.validateToken().pipe(
-      map(valid => {
-        if (valid) {
-          return this.cookieService.get('jwtToken');
-        } else {
-          return null;
-        }
-      }),
-      catchError(() => {
-        return new Observable<string | null>(observer => {
-          observer.next(null);
-          observer.complete();
-        });
-      })
+      map(valid => valid),
+      catchError(() => of(false))
     );
   }
 
@@ -48,7 +37,8 @@ export class TokenService {
 
     const options = { headers: { 'Content-Type': 'application/json' } };
 
-    return this.http.post<boolean>(`${this.url}/users/validate`, { token }, options).pipe(
+    return this.http.post<{ status: boolean }>(`${this.url}/users/validate`, { token }, options).pipe(
+      map(response => response.status),
       catchError(() => {
         return throwError(() => 'Error validating token');
       })
