@@ -1,14 +1,20 @@
-.container {
-    display: flex;
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: center;
-    height: 100vh;
-  }
-  
-  button {
-    border: 2px solid #333;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 10px 0;
-  }
+/* .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+button {
+  border: 2px solid #333;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 0;
+} */
+
+.buttons:hover {
+  /* border-right-width: 5px; */
+  background-color: #689067;
+  border-radius: 10px;
+}

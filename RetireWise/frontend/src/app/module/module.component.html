@@ -1,13 +1,27 @@
 <!-- Renders module selection page -->
-<div class="container" *ngIf="currentURL === '/module'">
-    <button *ngFor="let module of modules" (click)="navigateToModule(module.moduleNumber)">
+<div
+  class="container flex flex-col m-auto pt-20"
+  *ngIf="currentURL === '/module'"
+>
+  <div
+    class="grid w-3/12 m-auto border-[#689067] px-1 border-2 rounded-lg justify-center"
+  >
+    <button
+      *ngFor="let module of modules"
+      (click)="navigateToModule(module.moduleNumber)"
+      class="buttons my-3 py-3 px-3 w-full rounded-lg border-[#689067] border-2"
+    >
       Module {{ module.moduleNumber }} - {{ module.name }}
     </button>
+  </div>
 </div>
 
 <!-- Renders module/:id pages -->
-<div *ngIf="currentURL.startsWith('/module') && isNumeric(currentURL.split('/')[2])">
-
+<div
+  *ngIf="
+    currentURL.startsWith('/module') && isNumeric(currentURL.split('/')[2])
+  "
+>
   <!-- Renders module/:id/cards -->
   <ng-container *ngIf="currentURL.endsWith('/cards')">
     <!-- Load your cards component here -->
@@ -19,7 +33,6 @@
     <!-- Load your default component here -->
     <app-video-and-quizzes></app-video-and-quizzes>
   </ng-container>
-
 </div>
 
 <router-outlet></router-outlet>
