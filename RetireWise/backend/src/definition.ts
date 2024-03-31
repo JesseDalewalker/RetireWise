@@ -5,4 +5,5 @@ export interface Definition {
     definition: string;
     isFlipped: boolean;
     state: string;
+    moduleID: number;
 }
