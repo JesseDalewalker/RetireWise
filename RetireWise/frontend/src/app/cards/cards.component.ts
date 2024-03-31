@@ -20,9 +20,19 @@ export class CardsComponent {
   terms: TermCard[] = [];
   definitions: DefinitionCard[] = [];
 
+  currentModuleId!: number;
+
   private subscription: Subscription = new Subscription();
   private newsubscription: Subscription = new Subscription();
-  constructor(private termService: TermService, private definitionService: DefinitionService, private router: Router, private ngZone: NgZone) { }
+  constructor(private termService: TermService, private definitionService: DefinitionService, private router: Router) {
+
+    const url = this.router.url;
+
+    const match = url.match(/\/module\/(\d+)/);
+    if (match) {
+      this.currentModuleId = +match[1];
+    }
+  }
 
   // ngAfterViewInit(): void {
   //   // Your navigation logic
@@ -34,8 +44,12 @@ export class CardsComponent {
   ngOnInit(): void {
     this.subscription = this.termService.getTerms().subscribe(
       (data) => {
-        console.log(data)
-        this.terms = data;
+        data.forEach(term => {
+          if (term.moduleID === this.currentModuleId) {
+            this.terms.push(term);
+          }
+        }
+        );
       },
       (error) => {
         console.error('Error fetching user data: ', error);
@@ -44,8 +58,12 @@ export class CardsComponent {
 
     this.newsubscription = this.definitionService.getDefinitions().subscribe(
       (data) => {
-        console.log(data)
-        this.definitions = data;
+        data.forEach(definition => {
+          if (definition.moduleID === this.currentModuleId) {
+            this.definitions.push(definition);
+          }
+        }
+        );
       },
       (error) => {
         console.error('Error fetching user data: ', error);
