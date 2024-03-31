@@ -1,13 +1,20 @@
-<br/>
+<br />
 
 <!-- Side Dongle Code -->
 <div class="side-container">
-  <div class="side-dongle">
+  <div class="side-dongle ml-4 border-[#689067] border-2">
     <!-- Dynamically generate all the VideoAndQuizzes links in this module -->
-    <p>Module {{ currentModuleId }}</p>
+    <p class="border-b-2 border-[#689067] pb-1 text-center">
+      Module {{ currentModuleId }}
+    </p>
     <ul>
-      <li *ngFor="let module of numOfVidQuizPages">
-        <a [routerLink]="['/module', currentModuleId, 'videoandquizzes', module]" (click)=reloadComponent(module)>Video And Quiz {{ module }}</a>
+      <li class="mt-1" *ngFor="let module of numOfVidQuizPages">
+        <a
+          class="buttons px-2 py-1"
+          [routerLink]="['/module', currentModuleId, 'videoandquizzes', module]"
+          (click)="reloadComponent(module)"
+          >Video And Quiz {{ module }}</a
+        >
       </li>
     </ul>
   </div>
@@ -20,32 +27,39 @@
   <iframe [src]="videoURL" frameborder="0"></iframe>
 
   <!-- Adds space breaks between video and quiz -->
-  <br/>
-  <br/>
+  <br />
+  <br />
 
-<!-- Displays quiz questions and options -->
+  <!-- Displays quiz questions and options -->
   <div *ngFor="let quiz of quizzes; let i = index">
     <div class="multiple-c">
       <p>{{ quiz.question }}</p>
       <ul>
-        <li *ngFor="let option of quiz.options"
-            (click)="onSelectOption(option, i)"
-            [class.selected]="selectedOptions[i] === option"
-            [class.correct]="selectedOptions[i] === option && selectedOptions[i] === quiz.answer"
-            [class.incorrect]="selectedOptions[i] === option && selectedOptions[i] !== quiz.answer"
+        <li
+          *ngFor="let option of quiz.options"
+          (click)="onSelectOption(option, i)"
+          [class.selected]="selectedOptions[i] === option"
+          [class.correct]="
+            selectedOptions[i] === option && selectedOptions[i] === quiz.answer
+          "
+          [class.incorrect]="
+            selectedOptions[i] === option && selectedOptions[i] !== quiz.answer
+          "
         >
           {{ option }}
         </li>
       </ul>
     </div>
-    <br/>
+    <br />
   </div>
-
 </ng-container>
 
 <!-- Button that navigates to matching card game page -->
-<div>
-  <button (click)="navigateToCards()" class="buttons">
+<div class="flex flex-col m-auto w-1/6">
+  <button
+    (click)="navigateToCards()"
+    class="buttons py-2 border-2 rounded-lg border-[#689067]"
+  >
     Matching Card Game
   </button>
 </div>
