@@ -115,7 +115,7 @@ async function applySchemaValidation(db: mongodb.Db) {
   const termSchema = {
     $jsonSchema: {
       bsonType: "object",
-      required: ["definitionID", "isFlipped", "state", "wordName"],
+      required: ["definitionID", "isFlipped", "state", "wordName", "moduleID"],
       additionalProperties: false,
       properties: {
         _id: {},
@@ -136,6 +136,10 @@ async function applySchemaValidation(db: mongodb.Db) {
           bsonType: "string",
           description: "'wordName' is required and is a string",
         },
+        moduleID: {
+          bsonType: "number",
+          description: "'moduleID' is required and is a number",
+        },
 
       },
     },
@@ -144,7 +148,7 @@ async function applySchemaValidation(db: mongodb.Db) {
   const definitionSchema = {
     $jsonSchema: {
       bsonType: "object",
-      required: ["definition", "isFlipped", "state"],
+      required: ["definition", "isFlipped", "state", "moduleID"],
       additionalProperties: false,
       properties: {
         _id: {},
@@ -160,6 +164,10 @@ async function applySchemaValidation(db: mongodb.Db) {
         state: {
           bsonType: "string",
           description: "'state' is required and is a string",
+        },
+        moduleID: {
+          bsonType: "number",
+          description: "'moduleID' is required and is a number",
         },
       },
     },
