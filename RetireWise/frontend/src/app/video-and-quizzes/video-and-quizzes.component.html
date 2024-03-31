@@ -2,9 +2,11 @@
 
 <!-- Side Dongle Code -->
 <div class="side-container">
-  <div class="side-dongle ml-2 border-[#689067] border-2">
+  <div class="side-dongle ml-4 border-[#689067] border-2">
     <!-- Dynamically generate all the VideoAndQuizzes links in this module -->
-    <p class="border-b-2 border-[#689067] pb-1">Module {{ currentModuleId }}</p>
+    <p class="border-b-2 border-[#689067] pb-1 text-center">
+      Module {{ currentModuleId }}
+    </p>
     <ul>
       <li class="mt-1" *ngFor="let module of numOfVidQuizPages">
         <a
