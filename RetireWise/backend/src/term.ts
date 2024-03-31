@@ -6,4 +6,5 @@ export interface Term {
     definitionID: string;
     isFlipped: boolean;
     state: string;
+    moduleID: number;
 }
