@@ -1,11 +1,11 @@
 import * as mongodb from "mongodb";
-import { User } from "./user";
-import { Module } from "./module";
-import { Term } from "./term";
-import { Definition } from "./definition";
-import { Video } from "./video";
-import { QuestionOptionsAnswer } from "./questionoptionsanswer";
-import { Expense } from "./expense";
+import { User } from "./models/user";
+import { Module } from "./models/module";
+import { Term } from "./models/term";
+import { Definition } from "./models/definition";
+import { Video } from "./models/video";
+import { QuestionOptionsAnswer } from "./models/questionoptionsanswer";
+import { Expense } from "./models/expense";
 
 
 //Export all the collections here

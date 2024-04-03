@@ -1,6 +1,6 @@
 import * as express from "express";
 import * as mongodb from "mongodb";
-import { collections } from "./database";
+import { collections } from "../database";
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');

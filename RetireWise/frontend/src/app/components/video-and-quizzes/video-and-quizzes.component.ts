@@ -3,8 +3,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { VideoService } from '../video.service';
-import { QuestionOptionsAnswerService } from '../questionoptionsanswer.service';
+import { VideoService } from '../../services/video.service';
+import { QuestionOptionsAnswerService } from '../../services/questionoptionsanswer.service';
 
 @Component({
   selector: 'app-video-and-quizzes',

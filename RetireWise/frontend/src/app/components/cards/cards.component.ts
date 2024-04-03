@@ -1,10 +1,9 @@
-import { AfterViewInit, Component, NgZone, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TermCard, DefinitionCard } from '../cards/types'
-import { Definition } from '../../../../backend/src/definition';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { TermService } from '../term.service';
-import { DefinitionService } from '../definition.service';
+import { TermService } from '../../services/term.service';
+import { DefinitionService } from '../../services/definition.service';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 

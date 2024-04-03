@@ -4,7 +4,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive, Router, } from '@angular/ro
 import { VideoAndQuizzesComponent } from '../video-and-quizzes/video-and-quizzes.component';
 import { CardsComponent } from "../cards/cards.component";
 import { Subscription } from 'rxjs';
-import { ModuleService } from '../module.service';
+import { ModuleService } from '../../services/module.service';
 
 @Component({
     selector: 'app-module',

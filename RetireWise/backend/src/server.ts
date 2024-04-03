@@ -2,13 +2,13 @@ import * as dotenv from "dotenv";
 import cors from "cors";
 import express from "express";
 import { connectToDatabase } from "./database";
-import { userRouter } from "./user.routes";
-import { moduleRouter } from "./module.routes";
-import { termRouter } from "./terms.routes";
-import { definitionRouter } from "./definitions.routes";
-import { videoRouter } from "./video.routes";
-import { questionoptionsanswerRouter } from "./questionoptionsanswer.routes";
-import { expenseRouter } from "./expense.routes";
+import { userRouter } from "./routes/user.routes";
+import { moduleRouter } from "./routes/module.routes";
+import { termRouter } from "./routes/terms.routes";
+import { definitionRouter } from "./routes/definitions.routes";
+import { videoRouter } from "./routes/video.routes";
+import { questionoptionsanswerRouter } from "./routes/questionoptionsanswer.routes";
+import { expenseRouter } from "./routes/expense.routes";
 
 // Load environment variables from the .env file, where the ATLAS_URI is configured
 dotenv.config();

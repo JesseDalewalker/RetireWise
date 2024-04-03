@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import { DefinitionCard } from './cards/types';
+import { DefinitionCard } from '../components/cards/types';
 
 @Injectable({
     providedIn: 'root',

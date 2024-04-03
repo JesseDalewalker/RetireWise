@@ -6,7 +6,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/rou
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Subscription, throwError } from 'rxjs';
-import { TokenService } from '../token.service';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-login',
