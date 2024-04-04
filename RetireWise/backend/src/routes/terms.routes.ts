@@ -1,5 +1,5 @@
 import * as express from "express";
-import { collections } from "./database";
+import { collections } from "../database";
 
 export const termRouter = express.Router();
 termRouter.use(express.json());

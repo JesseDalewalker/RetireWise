@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import { Video } from '../../../backend/src/video';
+import { User } from '../../../../backend/src/models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 
-export class VideoService {
+export class UserService {
   private url = 'http://localhost:5200';
-  private videos$: Subject<Video[]> = new Subject();
+  private users$: Subject<User[]> = new Subject();
 
   constructor(private httpClient: HttpClient) { }
 
   //GET crud operation for frontend
-  getVideos(): Subject<Video[]> {
-    this.httpClient.get<Video[]>(`${this.url}/videos`).subscribe((videos) => {
-      this.videos$.next(videos);
+  getUsers(): Subject<User[]> {
+    this.httpClient.get<User[]>(`${this.url}/users`).subscribe((users) => {
+      this.users$.next(users);
     });
-    return this.videos$;
+    return this.users$;
   }
 }

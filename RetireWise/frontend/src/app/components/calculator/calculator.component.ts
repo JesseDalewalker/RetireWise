@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Expense } from './calc_types';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { ExpenseService } from '../expense.service';
+import { ExpenseService } from '../../services/expense.service'
 
 
 @Component({

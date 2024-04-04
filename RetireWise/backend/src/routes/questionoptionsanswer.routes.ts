@@ -1,6 +1,6 @@
 import * as express from "express";
 import * as mongodb from "mongodb";
-import { collections } from "./database";
+import { collections } from "../database";
 
 export const questionoptionsanswerRouter = express.Router();
 questionoptionsanswerRouter.use(express.json());

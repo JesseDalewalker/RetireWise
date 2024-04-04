@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import { Expense } from './calculator/calc_types';
+import { Expense } from '../components/calculator/calc_types';
 
 @Injectable({
     providedIn: 'root',
