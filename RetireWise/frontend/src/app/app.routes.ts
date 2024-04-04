@@ -11,6 +11,7 @@ import { CalculatorComponent } from '../app/components/calculator/calculator.com
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'module', component: ModuleComponent },
   { path: 'module/:id', component: ModuleComponent },
