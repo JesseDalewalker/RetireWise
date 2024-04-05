@@ -1,7 +1,7 @@
 <div class="flex-col pt-20">
   <div class="signup">
     <!-- Add comments later -->
-    <form [formGroup]="form" (ngSubmit)="submit()" class="py-10 px-7">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="py-10 px-7" (keydown.enter)="$event.preventDefault(); submit()">
       <!-- -->
       <input
         type="text"
@@ -11,6 +11,13 @@
         required
         class="w-full rounded-lg border-[#689067] px-1 border-2 bg-[#f6f0ea] focus:outline-[#689067] placeholder-[#689067]"
       />
+      <div *ngIf="form.controls['email'].errors?.['required'] && form.controls['email'].touched" class="error-message">
+        Email is required.
+      </div>
+      <div *ngIf="form.controls['email'].errors?.['pattern'] && form.controls['email'].touched" class="error-message">
+        Please enter a valid email address.
+      </div>
+
       <!-- -->
       <input
         type="password"
@@ -20,6 +27,13 @@
         required
         class="mb-5 mt-2 w-full rounded-lg border-[#689067] px-1 border-2 bg-[#f6f0ea] focus:outline-[#689067] placeholder-[#689067]"
       />
+      <div *ngIf="form.controls['password'].errors?.['required'] && form.controls['password'].touched" class="error-message">
+        Password is required.
+      </div>
+      <div *ngIf="form.controls['password'].errors?.['pattern'] && form.controls['password'].touched" class="error-message">
+        Please enter a valid password.
+      </div>
+
       <!-- -->
       <button
         class="submit mx-auto mb-2 border rounded-lg bg-[#689067] text-white"
@@ -27,14 +41,17 @@
       >
         Reset
       </button>
+
       <!-- -->
       <button
         class="submit mx-auto border rounded-lg bg-[#689067] text-white"
         id="submit"
+        type="submit"
         (click)="submit()"
       >
         Submit
       </button>
+      
     </form>
   </div>
   <br />

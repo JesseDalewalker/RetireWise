@@ -1,41 +1,66 @@
 <div class="flex-col pt-20">
   <div class="signup">
     <!-- Add comments later -->
-    <form [formGroup]="form" (ngSubmit)="submit()" class="py-10 px-7">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="py-10 px-7" (keydown.enter)="$event.preventDefault(); submit()">
       <!-- -->
       <input
         type="text"
         placeholder="Email"
         formControlName="email"
+        id="email"
         required
-        claSS="mb-2 mt-2 w-full rounded-lg border-[#689067] px-1 border-2 bg-[#f6f0ea] focus:outline-[#689067] placeholder-[#689067]"
+        class="mb-2 mt-2 w-full rounded-lg border-[#689067] px-1 border-2 bg-[#f6f0ea] focus:outline-[#689067] placeholder-[#689067]"
       />
+      <div *ngIf="form.controls['email'].errors?.['required'] && form.controls['email'].touched" class="error-message">
+        Email is required.
+      </div>
+      <div *ngIf="form.controls['email'].errors?.['pattern'] && form.controls['email'].touched" class="error-message">
+        Please enter a valid email address.
+      </div>
+
       <!-- -->
       <input
         type="password"
         placeholder="Password"
         formControlName="password"
+        id="password"
         required
         class="w-full rounded-lg border-[#689067] px-1 border-2 bg-[#f6f0ea] focus:outline-[#689067] placeholder-[#689067]"
       />
+      <div *ngIf="form.controls['password'].errors?.['required'] && form.controls['password'].touched" class="error-message">
+        Password is required.
+      </div>
+      <div *ngIf="form.controls['password'].errors?.['pattern'] && form.controls['password'].touched" class="error-message">
+        Please enter a valid password.
+      </div>
+
       <!-- -->
       <input
         type="password"
         placeholder="Confirm Password"
         formControlName="password2"
+        id="password2"
         required
         class="mt-2 w-full rounded-lg border-[#689067] px-1 border-2 bg-[#f6f0ea] focus:outline-[#689067] placeholder-[#689067]"
       />
+      <div *ngIf="form.hasError('passwordMismatch') && form.controls['password2'].touched" class="error-message">
+        Passwords do not match
+      </div>
+
       <!-- -->
       <button
         class="submit mx-auto mt-4 w-158 text-white bg-[#689067] rounded-lg"
+        id="reset"
         (click)="reset()"
       >
         Reset
       </button>
+
       <!-- -->
       <button
         class="submit mx-auto mt-2 text-white bg-[#689067] rounded-lg"
+        id="submit"
+        type="submit"
         (click)="submit()"
       >
         Submit
