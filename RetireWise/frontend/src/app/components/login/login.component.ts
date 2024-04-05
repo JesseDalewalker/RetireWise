@@ -19,19 +19,25 @@ import { TokenService } from '../../services/token.service';
 export class LoginComponent {
   form: FormGroup = new FormGroup({});
   submitSubscription: Subscription = new Subscription();
+  emailPattern: string = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+  passwordPattern: string = '^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$';
 
   constructor(private newForm: FormBuilder, private http:HttpClient, private router: Router, private tokenService: TokenService){}
 
   //Initializes a new form with input validation for each variable
   ngOnInit() {
     this.form = this.newForm.group({
-      email: new FormControl("", [Validators.required, Validators.email]),
-      password: new FormControl("", [Validators.required, Validators.pattern('^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$')])
+      email: new FormControl("", [Validators.required, Validators.pattern(this.emailPattern)]),
+      password: new FormControl("", [Validators.required, Validators.pattern(this.passwordPattern)])
     })
   }
 
   //submit() function will create a new user and submit user to backend for approval
-  async submit() {
+  submit() {
+    if (this.form.invalid) {
+      return;
+    }
+
     let user = {
       email: this.form.controls['email'].value,
       password: this.form.controls['password'].value,

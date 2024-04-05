@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -18,19 +18,35 @@ import { Subscription, throwError } from 'rxjs';
 export class SignupComponent {
   form: FormGroup = new FormGroup({});
   submitSubscription: Subscription = new Subscription();
-
+  emailPattern: string = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+  passwordPattern: string = '^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$';
+  
   constructor(private newForm: FormBuilder, private http:HttpClient, private router:Router) {}
 
-  //Initializes a new form with input validation for each variable
   ngOnInit() {
     this.form = this.newForm.group({
-      email: new FormControl('', [Validators.required, Validators.email,]),
-      password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$')]),
-      password2: new FormControl('', [Validators.required, Validators.pattern('^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$')]),
-    });
+      email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
+      password: new FormControl('', [Validators.required, Validators.pattern(this.passwordPattern)]),
+      password2: new FormControl('', [Validators.required, Validators.pattern(this.passwordPattern)]),
+    }, { validators: this.passwordMatchValidator });
+  }
+
+  passwordMatchValidator = (control: AbstractControl) => {
+    const password = control.get('password')?.value;
+    const password2 = control.get('password2')?.value;
+    
+    if (password !== null && password2 !== null && password !== password2) {
+      return { 'passwordMismatch': true };
+    }
+  
+    return null;
   }
 
   submit() {
+    if (this.form.invalid) {
+      return;
+    }
+
     let user = {
       email: this.form.controls['email'].value,
       password: this.form.controls['password'].value,
@@ -48,7 +64,7 @@ export class SignupComponent {
         if (error.status === 404) {
           alert('Resource not found.');
         } else if (error.status === 409) {
-          alert('Username already exists. Please try another one.');
+          alert('Email already exists. Please try another one.');
         } else if (error.status === 500) {
           alert('Server down.');
         } else if (error.status === 502) {
