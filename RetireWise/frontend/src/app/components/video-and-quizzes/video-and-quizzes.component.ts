@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { VideoService } from '../../services/video.service';
-import { QuestionOptionsAnswerService } from '../../services/questionoptionsanswer.service';
+import { QuizService } from '../../services/quiz.service';
 
 @Component({
   selector: 'app-video-and-quizzes',
@@ -38,7 +38,7 @@ export class VideoAndQuizzesComponent {
   options: [number, string[]][] = [];
   selectedOptions: (string | null)[] = [];
 
-  constructor(private sanitizer: DomSanitizer, private router: Router, private videoService: VideoService, private questionoptionsanswerService: QuestionOptionsAnswerService) {
+  constructor(private sanitizer: DomSanitizer, private router: Router, private videoService: VideoService, private quizService: QuizService) {
 
     const url = this.router.url;
 
@@ -95,7 +95,7 @@ export class VideoAndQuizzesComponent {
         }
     );
 
-    this.quizSubscription = this.questionoptionsanswerService.getQuestionOptionsAnswers().subscribe(
+    this.quizSubscription = this.quizService.getQuizzes().subscribe(
       (newdata2) => {
         newdata2.forEach(quiz => {
           if (quiz.moduleID === this.currentModuleId) {

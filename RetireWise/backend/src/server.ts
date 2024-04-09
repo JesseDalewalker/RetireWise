@@ -7,7 +7,7 @@ import { moduleRouter } from "./routes/module.routes";
 import { termRouter } from "./routes/terms.routes";
 import { definitionRouter } from "./routes/definitions.routes";
 import { videoRouter } from "./routes/video.routes";
-import { questionoptionsanswerRouter } from "./routes/questionoptionsanswer.routes";
+import { quizRouter } from "./routes/quiz.routes";
 import { expenseRouter } from "./routes/expense.routes";
 
 // Load environment variables from the .env file, where the ATLAS_URI is configured
@@ -31,7 +31,7 @@ connectToDatabase(ATLAS_URI)
     app.use("/terms", termRouter);
     app.use("/definitions", definitionRouter)
     app.use("/videos", videoRouter);
-    app.use("/questionoptionsanswer", questionoptionsanswerRouter);
+    app.use("/quiz", quizRouter);
     app.use("/expense", expenseRouter)
 
     // start the Express server

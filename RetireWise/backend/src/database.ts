@@ -4,7 +4,7 @@ import { Module } from "./models/module";
 import { Term } from "./models/term";
 import { Definition } from "./models/definition";
 import { Video } from "./models/video";
-import { QuestionOptionsAnswer } from "./models/questionoptionsanswer";
+import { Quiz } from "./models/quiz";
 import { Expense } from "./models/expense";
 
 
@@ -16,7 +16,7 @@ export const collections: {
   module?: mongodb.Collection<Module>;
   video?: mongodb.Collection<Video>;
   expense?: mongodb.Collection<Expense>;
-  questionoptionsanswer?: mongodb.Collection<QuestionOptionsAnswer>;
+  quiz?: mongodb.Collection<Quiz>;
 } = {};
 
 //Associate the database name and each individual collection here
@@ -42,8 +42,8 @@ export async function connectToDatabase(uri: string) {
   const videoCollection = db.collection<Video>("video");
   collections.video = videoCollection;
 
-  const questionoptionsanswerCollection = db.collection<QuestionOptionsAnswer>("questionoptionsanswer");
-  collections.questionoptionsanswer = questionoptionsanswerCollection;
+  const quizCollection = db.collection<Quiz>("quiz");
+  collections.quiz = quizCollection;
 
   const expenseCollection = db.collection<Expense>("expense");
   collections.expense = expenseCollection;
@@ -173,7 +173,7 @@ async function applySchemaValidation(db: mongodb.Db) {
     },
   };
 
-  const questionoptionsanswerSchema = {
+  const quizSchema = {
     $jsonSchema: {
       bsonType: "object",
       required: ["moduleID", "videoAndQuizPageID", "question", "options", "answer"],
@@ -250,9 +250,9 @@ async function applySchemaValidation(db: mongodb.Db) {
     await db.createCollection("video", { validator: videoSchema });
   }
 
-  const questionoptionsanswerCollectionExists = await db.listCollections({ name: "questionoptionsanswer" }).hasNext();
-  if (!questionoptionsanswerCollectionExists) {
-    await db.createCollection("questionoptionsanswer", { validator: questionoptionsanswerSchema });
+  const quizCollectionExists = await db.listCollections({ name: "quiz" }).hasNext();
+  if (!quizCollectionExists) {
+    await db.createCollection("quiz", { validator: quizSchema });
   }
 
   const expenseCollectionExists = await db.listCollections({ name: "expense" }).hasNext();
