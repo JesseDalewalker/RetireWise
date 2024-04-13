@@ -22,6 +22,12 @@ userRouter.get("/", async (_req, res) => {
 userRouter.get("/:id", async (req, res) => {
   try {
       const id = req?.params?.id;
+
+      if (!mongodb.ObjectId.isValid(id)) {
+        res.status(400).send(`Invalid module ID`);
+        return;
+      }
+
       const query = { _id: new mongodb.ObjectId(id) };
       const user = await collections.user.findOne(query);
       if (user) {
@@ -123,6 +129,12 @@ userRouter.post("/validate", async (req, res) => {
 userRouter.put("/:id", async (req, res) => {
   try {
       const id = req?.params?.id;
+
+      if (!mongodb.ObjectId.isValid(id)) {
+        res.status(400).send(`Invalid module ID`);
+        return;
+      }
+
       const user = req.body;
       const query = { _id: new mongodb.ObjectId(id) };
       const result = await collections.user.updateOne(query, { $set: user });
@@ -143,6 +155,12 @@ userRouter.put("/:id", async (req, res) => {
 userRouter.delete("/:id", async (req, res) => {
   try {
       const id = req?.params?.id;
+
+      if (!mongodb.ObjectId.isValid(id)) {
+        res.status(400).send(`Invalid module ID`);
+        return;
+      }
+
       const query = { _id: new mongodb.ObjectId(id) };
       const result = await collections.user.deleteOne(query);
 

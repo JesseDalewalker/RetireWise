@@ -52,6 +52,12 @@ try {
 quizRouter.put("/:id", async (req, res) => {
   try {
       const id = req?.params?.id;
+
+      if (!mongodb.ObjectId.isValid(id)) {
+        res.status(400).send(`Invalid module ID`);
+        return;
+      }
+
       const quiz = req.body;
       const query = { _id: new mongodb.ObjectId(id) };
       const result = await collections.quiz.updateOne(query, { $set: quiz });
@@ -73,6 +79,12 @@ quizRouter.put("/:id", async (req, res) => {
 quizRouter.delete("/:id", async (req, res) => {
   try {
       const id = req?.params?.id;
+
+      if (!mongodb.ObjectId.isValid(id)) {
+        res.status(400).send(`Invalid module ID`);
+        return;
+      }
+      
       const query = { _id: new mongodb.ObjectId(id) };
       const result = await collections.quiz.deleteOne(query);
 

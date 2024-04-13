@@ -52,6 +52,12 @@ try {
 videoRouter.put("/:id", async (req, res) => {
   try {
       const id = req?.params?.id;
+
+      if (!mongodb.ObjectId.isValid(id)) {
+        res.status(400).send(`Invalid module ID`);
+        return;
+      }
+
       const video = req.body;
       const query = { _id: new mongodb.ObjectId(id) };
       const result = await collections.video.updateOne(query, { $set: video });
@@ -73,6 +79,12 @@ videoRouter.put("/:id", async (req, res) => {
 videoRouter.delete("/:id", async (req, res) => {
   try {
       const id = req?.params?.id;
+
+      if (!mongodb.ObjectId.isValid(id)) {
+        res.status(400).send(`Invalid module ID`);
+        return;
+      }
+      
       const query = { _id: new mongodb.ObjectId(id) };
       const result = await collections.video.deleteOne(query);
 
