@@ -11,9 +11,9 @@ moduleRouter.use(mongoSanitize());
 moduleRouter.get("/", async (_req, res) => {
   try {
     const module = await collections.module.find({}).toArray();
-    res.status(200).send(module);
+    res.sendStatus(200).send(module);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.sendStatus(500).send(error.message);
   }
 });
 
@@ -23,14 +23,14 @@ try {
     const id = req?.params?.id;
 
     if (!mongodb.ObjectId.isValid(id)) {
-        res.sendStatus(400)
+        res.sendStatus(400).send(`Invalid module ID`);
         return;
     }
 
     const query = { _id: new mongodb.ObjectId(id) };
     const module = await collections.module.findOne(query);
     if (module) {
-        res.status(200).send(module);
+        res.sendStatus(200).send(module);
     } else {
         res.sendStatus(404)
     }
@@ -46,13 +46,13 @@ try {
     const result = await collections.module.insertOne(module);
 
     if (result.acknowledged) {
-        res.status(201).send(`Created new module ${result.insertedId}.`);
+        res.sendStatus(201).send(`Created new module ${result.insertedId}.`);
     } else {
-        res.status(500).send("Failed to create a new module.");
+        res.sendStatus(500).send("Failed to create a new module.");
     }
 } catch (error) {
     console.error(error);
-    res.status(400).send(error.message);
+    res.sendStatus(400).send(error.message);
 }
 });
 
@@ -62,7 +62,7 @@ moduleRouter.put("/:id", async (req, res) => {
       const id = req?.params?.id;
 
       if (!mongodb.ObjectId.isValid(id)) {
-        res.status(400).send(`Invalid module ID`);
+        res.sendStatus(400).send(`Invalid module ID`);
         return;
       }
 
@@ -71,15 +71,15 @@ moduleRouter.put("/:id", async (req, res) => {
       const result = await collections.module.updateOne(query, { $set: module });
 
       if (result && result.matchedCount) {
-          res.status(200).send(`Updated module ${id}.`);
+          res.sendStatus(200)
       } else if (!result.matchedCount) {
-          res.status(404).send(`Failed to find module ${id}`);
+          res.sendStatus(404)
       } else {
-          res.status(304).send(`Failed to update module ${id}`);
+          res.sendStatus(304)
       }
   } catch (error) {
       console.error(error.message);
-      res.status(400).send(error.message);
+      res.sendStatus(400).send(error.message);
   }
 });
 
@@ -89,7 +89,7 @@ moduleRouter.delete("/:id", async (req, res) => {
       const id = req?.params?.id;
 
       if (!mongodb.ObjectId.isValid(id)) {
-        res.status(400).send(`Invalid module ID`);
+        res.sendStatus(400).send(`Invalid module ID`);
         return;
       }
 
@@ -97,14 +97,14 @@ moduleRouter.delete("/:id", async (req, res) => {
       const result = await collections.module.deleteOne(query);
 
       if (result && result.deletedCount) {
-          res.status(202).send(`Removed module ${id}`);
+          res.sendStatus(202)
       } else if (!result) {
-          res.status(400).send(`Failed to remove module ${id}`);
+          res.sendStatus(400)
       } else if (!result.deletedCount) {
-          res.status(404).send(`Failed to find module ${id}`);
+          res.sendStatus(404)
       }
   } catch (error) {
       console.error(error.message);
-      res.status(400).send(error.message);
+      res.sendStatus(400).send(error.message);
   }
 });
