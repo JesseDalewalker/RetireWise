@@ -65,7 +65,7 @@ quizRouter.put("/:id", async (req, res) => {
       const result = await collections.quiz.updateOne(query, { $set: quiz });
 
       if (result && result.matchedCount) {
-          res.status(200).send(`Updated quiz ${id}.`);
+          res.sendStatus(200);
       } else if (!result.matchedCount) {
           res.sendStatus(404);
       } else {
@@ -91,7 +91,7 @@ quizRouter.delete("/:id", async (req, res) => {
       const result = await collections.quiz.deleteOne(query);
 
       if (result && result.deletedCount) {
-          res.status(202).send(`Removed quiz ${id}`);
+          res.sendStatus(202);
       } else if (!result) {
           res.sendStatus(400);
       } else if (!result.deletedCount) {
