@@ -19,6 +19,12 @@ moduleRouter.get("/", async (_req, res) => {
 moduleRouter.get("/:id", async (req, res) => {
 try {
     const id = req?.params?.id;
+
+    if (!mongodb.ObjectId.isValid(id)) {
+        res.status(400).send(`Invalid module ID`);
+        return;
+    }
+
     const query = { _id: new mongodb.ObjectId(id) };
     const module = await collections.module.findOne(query);
     if (module) {
@@ -52,6 +58,12 @@ try {
 moduleRouter.put("/:id", async (req, res) => {
   try {
       const id = req?.params?.id;
+
+      if (!mongodb.ObjectId.isValid(id)) {
+        res.status(400).send(`Invalid module ID`);
+        return;
+      }
+
       const module = req.body;
       const query = { _id: new mongodb.ObjectId(id) };
       const result = await collections.module.updateOne(query, { $set: module });
@@ -73,6 +85,12 @@ moduleRouter.put("/:id", async (req, res) => {
 moduleRouter.delete("/:id", async (req, res) => {
   try {
       const id = req?.params?.id;
+
+      if (!mongodb.ObjectId.isValid(id)) {
+        res.status(400).send(`Invalid module ID`);
+        return;
+      }
+
       const query = { _id: new mongodb.ObjectId(id) };
       const result = await collections.module.deleteOne(query);
 
