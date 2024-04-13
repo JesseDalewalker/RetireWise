@@ -1,9 +1,11 @@
 import * as express from "express";
 import * as mongodb from "mongodb";
 import { collections } from "../database";
+import mongoSanitize from "express-mongo-sanitize";
 
 export const videoRouter = express.Router();
 videoRouter.use(express.json());
+videoRouter.use(mongoSanitize());
 
 //GET ALL videos
 videoRouter.get("/", async (_req, res) => {
