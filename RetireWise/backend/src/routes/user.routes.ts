@@ -34,10 +34,10 @@ userRouter.get("/:id", async (req, res) => {
       if (user) {
           res.status(200).send(user);
       } else {
-          res.status(404).send(`Failed to find user ${id}`);
+          res.sendStatus(404);
       }
   } catch (error) {
-      res.status(404).send(`Failed to find user ${req?.params?.id}`);
+      res.sendStatus(404);
   }
 });
 
@@ -141,11 +141,11 @@ userRouter.put("/:id", async (req, res) => {
       const result = await collections.user.updateOne(query, { $set: user });
 
       if (result && result.matchedCount) {
-          res.status(200).send(`Updated user ${id}.`);
+          res.sendStatus(200);
       } else if (!result.matchedCount) {
-          res.status(404).send(`Failed to find user ${id}`);
+          res.sendStatus(404);
       } else {
-          res.status(304).send(`Failed to update user ${id}`);
+          res.sendStatus(304);
       }
   } catch (error) {
       res.status(400).send(error.message);
@@ -166,11 +166,11 @@ userRouter.delete("/:id", async (req, res) => {
       const result = await collections.user.deleteOne(query);
 
       if (result && result.deletedCount) {
-          res.status(202).send(`Removed user ${id}`);
+          res.sendStatus(202);
       } else if (!result) {
-          res.status(400).send(`Failed to remove user ${id}`);
+          res.sendStatus(400);
       } else if (!result.deletedCount) {
-          res.status(404).send(`Failed to find user ${id}`);
+          res.sendStatus(404);
       }
   } catch (error) {
       res.status(400).send(error.message);

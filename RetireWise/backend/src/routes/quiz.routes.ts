@@ -26,10 +26,10 @@ try {
     if (quiz) {
         res.status(200).send(quiz);
     } else {
-        res.status(404).send(`Failed to find quiz ${id}`);
+        res.sendStatus(404);
     }
 } catch (error) {
-    res.status(404).send(`Failed to find quiz ${req?.params?.id}`);
+    res.sendStatus(404);
 }
 });
 
@@ -67,9 +67,9 @@ quizRouter.put("/:id", async (req, res) => {
       if (result && result.matchedCount) {
           res.status(200).send(`Updated quiz ${id}.`);
       } else if (!result.matchedCount) {
-          res.status(404).send(`Failed to find quiz ${id}`);
+          res.sendStatus(404);
       } else {
-          res.status(304).send(`Failed to update quiz ${id}`);
+          res.sendStatus(304);
       }
   } catch (error) {
       console.error(error.message);
@@ -93,9 +93,9 @@ quizRouter.delete("/:id", async (req, res) => {
       if (result && result.deletedCount) {
           res.status(202).send(`Removed quiz ${id}`);
       } else if (!result) {
-          res.status(400).send(`Failed to remove quiz ${id}`);
+          res.sendStatus(400);
       } else if (!result.deletedCount) {
-          res.status(404).send(`Failed to find quiz ${id}`);
+          res.sendStatus(404);
       }
   } catch (error) {
       console.error(error.message);
