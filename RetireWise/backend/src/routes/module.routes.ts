@@ -23,7 +23,7 @@ try {
     const id = req?.params?.id;
 
     if (!mongodb.ObjectId.isValid(id)) {
-        res.status(400).send(`Invalid module ID`);
+        res.status(400).json({"message" : `Invalid module ID`});
         return;
     }
 
@@ -32,10 +32,10 @@ try {
     if (module) {
         res.status(200).send(module);
     } else {
-        res.status(404).send(`Failed to find module ${id}`);
+        res.status(404).json({"message" : `Failed to find module ${id}`});
     }
 } catch (error) {
-    res.status(404).send(`Failed to find module ${req?.params?.id}`);
+    res.status(404).send().json({"message" : `Failed to find module ${req?.params?.id}`});
 }
 });
 
