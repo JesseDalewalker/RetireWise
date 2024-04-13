@@ -146,10 +146,11 @@ export class CardsComponent {
   }
 
   // handles click event of definition cards
-  definitionCardClicked(id: string): number | undefined {
+  definitionCardClicked(id: string) {
     if (this.cardTurnOverCheck(this.definitions) === true) {
-      return 0;
+      return;
     }
+
     this.definitions.forEach(function (definition) {
       if (definition._id === id) {
         if (definition.isFlipped === false) {
@@ -162,20 +163,15 @@ export class CardsComponent {
       }
     });
 
-    const myTimeout = setTimeout(
-      this.resetCards,
-      2000,
-      this.terms,
-      this.definitions
-    );
-    return 0;
+    setTimeout(this.resetCards, 2000, this.terms, this.definitions);
   }
 
   // handles click event of term cards
-  termCardClicked(id: string): number | undefined {
+  termCardClicked(id: string) {
     if (this.cardTurnOverCheck(this.terms) === true) {
-      return 0;
+      return;
     }
+
     this.terms.forEach(function (term) {
       if (term._id === id) {
         if (term.isFlipped === false) {
@@ -187,13 +183,8 @@ export class CardsComponent {
         }
       }
     });
-    const myTimeout = setTimeout(
-      this.resetCards,
-      2000,
-      this.terms,
-      this.definitions
-    );
-    return 0;
+
+    setTimeout(this.resetCards, 2000, this.terms, this.definitions);
   }
 
   allMatched(termCardArray: TermCard[]) {
