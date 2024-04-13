@@ -1,12 +1,13 @@
 import * as express from "express";
 import * as mongodb from "mongodb";
 import { collections } from "../database";
+import mongoSanitize from "express-mongo-sanitize";
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 export const userRouter = express.Router();
 userRouter.use(express.json());
-
+userRouter.use(mongoSanitize());
 
 //GET ALL users
 userRouter.get("/", async (_req, res) => {

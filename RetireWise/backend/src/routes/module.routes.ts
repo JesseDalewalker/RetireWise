@@ -1,9 +1,11 @@
 import * as express from "express";
 import * as mongodb from "mongodb";
 import { collections } from "../database";
+import mongoSanitize from "express-mongo-sanitize";
 
 export const moduleRouter = express.Router();
 moduleRouter.use(express.json());
+moduleRouter.use(mongoSanitize());
 
 //GET ALL modules
 moduleRouter.get("/", async (_req, res) => {
