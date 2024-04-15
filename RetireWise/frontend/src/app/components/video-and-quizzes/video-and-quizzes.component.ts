@@ -109,7 +109,6 @@ export class VideoAndQuizzesComponent {
 
   //Unsubscribes from the backend upon leaving the home component page, which prevents multiple unnecessary backend calls
   ngOnDestroy(): void {
-    console.log(this.videoSubscription)
     if (this.videoSubscription) {
       this.videoSubscription.unsubscribe();
     }
