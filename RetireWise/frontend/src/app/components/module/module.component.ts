@@ -39,8 +39,9 @@ export class ModuleComponent{
 
   //Instantiates the page once when it first loads
   ngOnInit(): void {
-    // Check if the modules array is empty or the current URL is '/module'
-    // If either condition is true, fetch the module data
+    if (typeof sessionStorage !== 'undefined') {
+      // Check if the modules array is empty or the current URL is '/module'
+      // If either condition is true, fetch the module data
       this.newsubscription = this.moduleService.getModules().subscribe(
         (newdata) => {
           this.modules = newdata;
@@ -49,6 +50,7 @@ export class ModuleComponent{
           console.error('Error fetching module data: ', error);
         }
       );
+    }
   }
   
   //Unsubscribes from the backend upon leaving the home component page, which prevents multiple unnecessary backend calls
