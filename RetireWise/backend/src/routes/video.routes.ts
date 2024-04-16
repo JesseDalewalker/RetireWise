@@ -64,7 +64,7 @@ videoRouter.put("/:id", async (req, res) => {
       const query = { _id: new mongodb.ObjectId(id) };
       const result = await collections.video.updateOne(query, { $set: video });
 
-      if (result && result.matchedCount) {
+      if (result?.matchedCount) {
           res.sendStatus(200);
       } else if (!result.matchedCount) {
           res.sendStatus(404);
@@ -90,7 +90,7 @@ videoRouter.delete("/:id", async (req, res) => {
       const query = { _id: new mongodb.ObjectId(id) };
       const result = await collections.video.deleteOne(query);
 
-      if (result && result.deletedCount) {
+      if (result?.deletedCount) {
           res.sendStatus(202);
       } else if (!result) {
           res.sendStatus(400);

@@ -7,7 +7,6 @@ import { Video } from "./models/video";
 import { Quiz } from "./models/quiz";
 import { Expense } from "./models/expense";
 
-
 //Export all the collections here
 export const collections: {
   user?: mongodb.Collection<User>;
@@ -248,6 +247,16 @@ async function applySchemaValidation(db: mongodb.Db) {
   const videoCollectionExists = await db.listCollections({ name: "video" }).hasNext();
   if (!videoCollectionExists) {
     await db.createCollection("video", { validator: videoSchema });
+  }
+
+  const termsCollectionExists = await db.listCollections({ name: "terms" }).hasNext();
+  if (!termsCollectionExists) {
+    await db.createCollection("terms", { validator: termSchema });
+  }
+
+  const definitionsCollectionExists = await db.listCollections({ name: "definitions" }).hasNext();
+  if (!definitionsCollectionExists) {
+    await db.createCollection("definitions", { validator: definitionSchema });
   }
 
   const quizCollectionExists = await db.listCollections({ name: "quiz" }).hasNext();

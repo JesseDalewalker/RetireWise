@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterLink, RouterLinkActive, Router, ActivatedRoute } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { VideoService } from '../../services/video.service';
 import { QuizService } from '../../services/quiz.service';
@@ -16,13 +16,12 @@ import { QuizService } from '../../services/quiz.service';
 
 export class VideoAndQuizzesComponent {
 
-  videos: any[] = ["hv4Ou9DMsV8","hv4Ou9DMsV8","hv4Ou9DMsV8","hv4Ou9DMsV8","hv4Ou9DMsV8"];
+  videos: any[] = [];
   quizzes: any[] = [];
 
   private videoSubscription: Subscription = new Subscription();
   private quizSubscription: Subscription = new Subscription();
 
-  //Needs to equal the total number of videoandquizzes associated with a module
   numOfVidQuizPages: any[] = [];
   totalVideoAndQuizPageMatches: number;
 
@@ -30,11 +29,8 @@ export class VideoAndQuizzesComponent {
   currentVideoAndQuizPageID!: number;
   currentVideoID: string;
 
-  //videoID is the everything after watch?v= in a YouTube video
-  //(Ex. https://www.youtube.com/watch?v=vStru2voDjY, vStru2voDjY is the ID)
   videoURL!: SafeResourceUrl;
 
-  questions!: string[];
   options: [number, string[]][] = [];
   selectedOptions: (string | null)[] = [];
 

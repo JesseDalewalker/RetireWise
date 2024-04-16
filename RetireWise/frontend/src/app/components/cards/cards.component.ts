@@ -33,13 +33,6 @@ export class CardsComponent {
     }
   }
 
-  // ngAfterViewInit(): void {
-  //   // Your navigation logic
-  //   this.ngZone.run(() => {
-  //     this.router.navigateByUrl('/home');
-  //   });
-  // }
-
   ngOnInit(): void {
     this.subscription = this.termService.getTerms().subscribe(
       (data) => {
