@@ -33,41 +33,37 @@ export class CardsComponent {
     }
   }
 
-  // ngAfterViewInit(): void {
-  //   // Your navigation logic
-  //   this.ngZone.run(() => {
-  //     this.router.navigateByUrl('/home');
-  //   });
-  // }
-
   ngOnInit(): void {
-    this.subscription = this.termService.getTerms().subscribe(
-      (data) => {
-        data.forEach(term => {
-          if (term.moduleID === this.currentModuleId) {
-            this.terms.push(term);
-          }
-        }
-        );
-      },
-      (error) => {
-        console.error('Error fetching user data: ', error);
-      }
-    );
+    if (typeof sessionStorage !== 'undefined') {
 
-    this.newsubscription = this.definitionService.getDefinitions().subscribe(
-      (data) => {
-        data.forEach(definition => {
-          if (definition.moduleID === this.currentModuleId) {
-            this.definitions.push(definition);
+      this.subscription = this.termService.getTerms().subscribe(
+        (data) => {
+          data.forEach(term => {
+            if (term.moduleID === this.currentModuleId) {
+              this.terms.push(term);
+            }
           }
+          );
+        },
+        (error) => {
+          console.error('Error fetching user data: ', error);
         }
-        );
-      },
-      (error) => {
-        console.error('Error fetching user data: ', error);
-      }
-    );
+      );
+
+      this.newsubscription = this.definitionService.getDefinitions().subscribe(
+        (data) => {
+          data.forEach(definition => {
+            if (definition.moduleID === this.currentModuleId) {
+              this.definitions.push(definition);
+            }
+          }
+          );
+        },
+        (error) => {
+          console.error('Error fetching user data: ', error);
+        }
+      );
+    }
   }
 
   /* Checks to make sure only one term and one definition are allowed to be turned over

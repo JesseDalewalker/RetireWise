@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterLink, RouterLinkActive, Router, ActivatedRoute } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { VideoService } from '../../services/video.service';
 import { QuizService } from '../../services/quiz.service';
@@ -16,7 +16,7 @@ import { QuizService } from '../../services/quiz.service';
 
 export class VideoAndQuizzesComponent {
 
-  videos: any[] = ["hv4Ou9DMsV8","hv4Ou9DMsV8","hv4Ou9DMsV8","hv4Ou9DMsV8","hv4Ou9DMsV8"];
+  videos: any[] = [];
   quizzes: any[] = [];
 
   private videoSubscription: Subscription = new Subscription();
@@ -30,8 +30,6 @@ export class VideoAndQuizzesComponent {
   currentVideoAndQuizPageID!: number;
   currentVideoID: string;
 
-  //videoID is the everything after watch?v= in a YouTube video
-  //(Ex. https://www.youtube.com/watch?v=vStru2voDjY, vStru2voDjY is the ID)
   videoURL!: SafeResourceUrl;
 
   questions!: string[];
@@ -71,44 +69,42 @@ export class VideoAndQuizzesComponent {
     return this.videos.at(0).moduleID;
   }
 
-  //Instantiates the page once when it first loads
+  // Instantiates the page once when it first loads
   ngOnInit(): void {
-    this.videoSubscription = this.videoService.getVideos().subscribe(
-      (newdata) => {
+    if (typeof sessionStorage !== 'undefined') {
 
-        this.videos = newdata;
+      this.videoSubscription = this.videoService.getVideos().subscribe(
+        (newdata) => {
+          this.videos = newdata;
 
-        this.videos.forEach(video => {
-          if (video.moduleID === this.currentModuleId) {
-            this.totalVideoAndQuizPageMatches++;
-            if (video.videoAndQuizPageID === this.currentVideoAndQuizPageID) {
-              this.videoURL = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${video.videoID}`);
+          this.videos.forEach(video => {
+            if (video.moduleID === this.currentModuleId) {
+              this.totalVideoAndQuizPageMatches++;
+              if (video.videoAndQuizPageID === this.currentVideoAndQuizPageID) {
+                this.videoURL = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${video.videoID}`);
+              }
             }
-          }
-        });
-
-        this.numOfVidQuizPages = Array.from({length: this.totalVideoAndQuizPageMatches}, (_, i) => i + 1)
-
+          });
+          this.numOfVidQuizPages = Array.from({length: this.totalVideoAndQuizPageMatches}, (_, i) => i + 1)
         },
         (error) => {
           console.error('Error fetching video data: ', error);
         }
-    );
+      );
 
-    this.quizSubscription = this.quizService.getQuizzes().subscribe(
-      (newdata2) => {
-        newdata2.forEach(quiz => {
-          if (quiz.moduleID === this.currentModuleId) {
-            if (quiz.videoAndQuizPageID === this.currentVideoAndQuizPageID) {
+      this.quizSubscription = this.quizService.getQuizzes().subscribe(
+        (newdata2) => {
+          newdata2.forEach(quiz => {
+            if (quiz.moduleID === this.currentModuleId && quiz.videoAndQuizPageID === this.currentVideoAndQuizPageID) {
               this.quizzes.push(quiz);
             }
-          }
-        });
-      },
-      (error) => {
-        console.error('Error fetching quiz data: ', error);
-      }
-    );
+          });
+        },
+        (error) => {
+          console.error('Error fetching quiz data: ', error);
+        }
+      );
+    }
   }
 
   //Unsubscribes from the backend upon leaving the home component page, which prevents multiple unnecessary backend calls
