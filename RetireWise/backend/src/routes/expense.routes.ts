@@ -1,5 +1,4 @@
 import * as express from "express";
-import * as mongodb from "mongodb";
 import { collections } from "../database";
 
 export const expenseRouter = express.Router();

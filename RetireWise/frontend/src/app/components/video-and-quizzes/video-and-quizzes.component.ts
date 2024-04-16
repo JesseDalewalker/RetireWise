@@ -22,7 +22,6 @@ export class VideoAndQuizzesComponent {
   private videoSubscription: Subscription = new Subscription();
   private quizSubscription: Subscription = new Subscription();
 
-  //Needs to equal the total number of videoandquizzes associated with a module
   numOfVidQuizPages: any[] = [];
   totalVideoAndQuizPageMatches: number;
 
@@ -32,7 +31,6 @@ export class VideoAndQuizzesComponent {
 
   videoURL!: SafeResourceUrl;
 
-  questions!: string[];
   options: [number, string[]][] = [];
   selectedOptions: (string | null)[] = [];
 

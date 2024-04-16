@@ -107,7 +107,7 @@ describe('Login Page', () => {
     cy.get('#submit').click()
 
     cy.wait('@loginRequest').then((interception) => {
-      if (interception && interception.response) {
+      if (interception?.response) {
         expect(interception.response.statusCode).to.eq(200);
         expect(interception.response.body).to.have.property('token');
       } else {

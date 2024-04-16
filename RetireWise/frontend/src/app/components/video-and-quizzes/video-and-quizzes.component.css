@@ -63,14 +63,11 @@ li.incorrect {
   top: 50%;
   left: 0;
   transform: translateY(-50%);
-  /* background-color: #f0f0f0; */
   padding: 10px;
   border-radius: 5px;
-  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
 }
 
 .buttons:hover {
-  /* border-right-width: 5px; */
   background-color: #689067;
   border-radius: 10px;
 }

@@ -140,7 +140,7 @@ userRouter.put("/:id", async (req, res) => {
       const query = { _id: new mongodb.ObjectId(id) };
       const result = await collections.user.updateOne(query, { $set: user });
 
-      if (result && result.matchedCount) {
+      if (result?.matchedCount) {
           res.sendStatus(200);
       } else if (!result.matchedCount) {
           res.sendStatus(404);
@@ -165,7 +165,7 @@ userRouter.delete("/:id", async (req, res) => {
       const query = { _id: new mongodb.ObjectId(id) };
       const result = await collections.user.deleteOne(query);
 
-      if (result && result.deletedCount) {
+      if (result?.deletedCount) {
           res.sendStatus(202);
       } else if (!result) {
           res.sendStatus(400);

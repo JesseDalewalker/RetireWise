@@ -111,7 +111,7 @@ describe('Signup Page', () => {
         cy.get('#submit').click()
 
         cy.wait('@signupRequest').then((interception) => {
-            if (interception && interception.response) {
+            if (interception?.response) {
 
                 expect(interception.response.statusCode).to.eq(409);
 
@@ -143,7 +143,7 @@ describe('Signup Page', () => {
         cy.get('#submit').click()
 
         cy.wait('@signupRequest').then((interception) => {
-            if (interception && interception.response) {
+            if (interception?.response) {
 
                 expect(interception.response.statusCode).to.eq(201);
 

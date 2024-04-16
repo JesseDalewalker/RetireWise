@@ -1,14 +1,3 @@
-<!-- <div style="margin-left: 10%; margin-right: 10%; margin-top: 20px">
-  <ngx-slick-carousel
-    class="carousel"
-    #slickModel="slick-carousel"
-    [config]="slideConfig"
-  >
-    <div ngxSlickItem *ngFor="let slide of slides" class="object-cover">
-      <img src="{{ slide.img }}" alt="" class="" />
-    </div>
-  </ngx-slick-carousel>
-</div> -->
 <div class="flex justify-center items-center bg-[#f6f0ea]">
   <div class="flex-1 pl-10 pr-10 text-3xl">
     <div class="bg-[#689067] pl-4 py-4 text-white rounded-lg">
@@ -19,7 +8,7 @@
       retirement today!
     </div>
   </div>
-  <div class="flex-1"><img src="/assets/old_ppl_cutouts.jpg" /></div>
+  <div class="flex-1"><img src="/assets/old_ppl_cutouts.jpg" alt="Paper Chain Old Couple Standing atop Pennies"/></div>
 </div>
 <div class="bg-[#689067] flex justify-center text-3xl text-white pt-4">
   Ways To Learn About Retirement
@@ -47,10 +36,12 @@
   <div
     class="flex-1 pl-24 pt-5 border-l-2 ml-20 my-10 border-[#689067] text-[#689067]"
   >
-    <li class="list-none">Contact Us</li>
-    <li class="list-none">Budget Calculator</li>
-    <li class="list-none">Sign In</li>
-    <li class="list-none">Sign Up</li>
+    <ul>
+      <li class="list-none">Contact Us</li>
+      <li class="list-none">Budget Calculator</li>
+      <li class="list-none">Sign In</li>
+      <li class="list-none">Sign Up</li>
+    </ul>
   </div>
 </footer>
 
