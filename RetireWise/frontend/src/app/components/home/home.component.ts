@@ -13,9 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 })
 
 export class HomeComponent {
-  slides = [{ content: "Videos" },
-  { content: "Quizzes" },
-  { content: "Matching Cards" }, { content: "Budget Calculator" }]
+  slides = [{ content: "Videos" }, { content: "Quizzes" }, { content: "Matching Cards" }]
 
   slideConfig = {
     "slidesToShow": 1,
