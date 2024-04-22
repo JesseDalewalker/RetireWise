@@ -125,6 +125,9 @@ describe('Signup Page', () => {
         });
     })
 
+    //NOTE: THIS WILL ONLY WORK THE FIRST TIME YOU RUN THE TEST. 
+    //YOU MUST DELETE THIS RECORD FROM MongoDB BEFORE RUNNING AGAIN,
+    //ELSE THE TEST WILL ALWAYS FAIL.
     it('Valid Email and Matching Passwords', () => {
         cy.visit('http://localhost:4200/signup')
         cy.url().should('include', 'http://localhost:4200/signup')

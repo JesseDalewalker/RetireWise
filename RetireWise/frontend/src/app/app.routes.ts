@@ -4,7 +4,6 @@ import { LoginComponent } from '../app/components/login/login.component';
 import { SignupComponent } from '../app/components/signup/signup.component';
 import { HomeComponent } from '../app/components/home/home.component';
 import { ModuleComponent } from '../app/components/module/module.component';
-import { CalculatorComponent } from '../app/components/calculator/calculator.component';
 
 //Application Routing
 //Path should match the routerLink indicated in app.component.html
@@ -17,7 +16,7 @@ export const routes: Routes = [
   { path: 'module/:id', component: ModuleComponent },
   { path: 'module/:id/videoandquizzes/:videoandquizzesId', component: ModuleComponent },
   { path: 'module/:id/cards', component: ModuleComponent },
-  { path: 'calculator', component: CalculatorComponent },
+  { path: '**', redirectTo: 'home' }
 ];
 
 export const appRoutingModule = RouterModule.forRoot(routes);

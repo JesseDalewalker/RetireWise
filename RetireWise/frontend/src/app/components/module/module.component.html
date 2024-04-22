@@ -9,7 +9,7 @@
     <button
       *ngFor="let module of modules"
       (click)="navigateToModule(module.moduleNumber)"
-      class="buttons my-3 py-3 px-3 w-full rounded-lg border-[#689067] border-2"
+      class="moduleButtons my-3 py-3 px-3 w-full rounded-lg border-[#689067] border-2"
     >
       Module {{ module.moduleNumber }} - {{ module.name }}
     </button>
