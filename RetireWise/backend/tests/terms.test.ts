@@ -3,7 +3,7 @@ import request from 'supertest';
 import { Express } from 'express';
 import express from 'express';
 import { MongoClient } from 'mongodb';
-import { definitionRouter } from '../src/routes/definitions.routes';
+import { termRouter } from '../src/routes/terms.routes';
 
 dotenv.config();
 
@@ -20,7 +20,7 @@ let connection: MongoClient;
 beforeAll(async () => {
     app = express();
     app.use(express.json());
-    app.use('/', definitionRouter);
+    app.use('/', termRouter);
     connection = await MongoClient.connect(ATLAS_URI);
 }, 10000);
 
@@ -30,9 +30,9 @@ afterAll(async () => {
 
 const agent = request.agent('http://localhost:5200');
 
-describe('GET /definitions/', () => {
-    it('Get All Definitions', async () => {
-        const response = await agent.get('/definitions');
+describe('GET /terms/', () => {
+    it('Get All Terms', async () => {
+        const response = await agent.get('/terms');
         expect(response.statusCode).toBe(200);
     });
 });
