@@ -17,7 +17,7 @@ export const routes: Routes = [
   { path: 'module/:id', component: ModuleComponent },
   { path: 'module/:id/videoandquizzes/:videoandquizzesId', component: ModuleComponent },
   { path: 'module/:id/cards', component: ModuleComponent },
-  { path: 'calculator', component: CalculatorComponent },
+  { path: 'calculator', redirectTo: '/Budget-Tracker', pathMatch: 'full' },
 ];
 
 export const appRoutingModule = RouterModule.forRoot(routes);
