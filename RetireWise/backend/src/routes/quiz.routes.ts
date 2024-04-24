@@ -29,7 +29,7 @@ try {
         res.sendStatus(404);
     }
 } catch (error) {
-    res.sendStatus(404);
+    res.sendStatus(400);
 }
 });
 
@@ -42,7 +42,7 @@ try {
     if (result.acknowledged) {
         res.status(201).send(`Created new quiz ${result.insertedId}.`);
     } else {
-        res.status(500).send("Failed to create a new quiz.");
+        res.status(400).send("Failed to create a new quiz.");
     }
 } catch (error) {
     console.error(error);

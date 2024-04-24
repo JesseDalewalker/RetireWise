@@ -131,7 +131,7 @@ async function applySchemaValidation(db: mongodb.Db) {
           minLength: 5,
         },
         isFlipped: {
-          bsonType: "boolean",
+          bsonType: "bool",
           description: "'isFlipped' is required and is a boolean",
         },
         state: {
@@ -167,7 +167,7 @@ async function applySchemaValidation(db: mongodb.Db) {
           minLength: 5,
         },
         isFlipped: {
-          bsonType: "boolean",
+          bsonType: "bool",
           description: "'isFlipped' is required and is a boolean",
         },
         state: {

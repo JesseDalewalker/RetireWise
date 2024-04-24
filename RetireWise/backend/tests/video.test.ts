@@ -49,15 +49,16 @@ describe('POST /videos', () => {
         expect(response.statusCode).toBe(201);
     });
 
-    // it('Return 409 Module Already Exists', async () => {
-    //     const moduleData = {
-    //         "name": 'new module',
-    //         "moduleNumber": 6
-    //     };
+    it('Return 409 Video Already Exists', async () => {
+        const videoData = {
+            moduleID: 4,
+            videoAndQuizPageID: 1,
+            videoID: 'test'
+        };
 
-    //     const response = await agent.post('/videos').send(moduleData);
-    //     expect(response.status).toBe(409);
-    // });
+        const response = await agent.post('/videos').send(videoData);
+        expect(response.status).toBe(409);
+    });
 });
 
 describe('GET /videos/:id', () => {
@@ -121,7 +122,7 @@ describe('PUT /videos/:id', () => {
 describe('DELETE /videos/:id', () => {
     it('Delete a Video by ID', async () => {
         const allVideo = await agent.get('/videos');
-        const videoID = 'test';
+        const videoID = 'test1';
         let vidId = null;
 
         for (const video of allVideo.body) {

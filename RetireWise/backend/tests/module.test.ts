@@ -47,6 +47,16 @@ describe('POST /modules', () => {
         const response = await agent.post('/modules').send(moduleData);
         expect(response.statusCode).toBe(201);
     });
+
+    it('Return 400 If Module Data is Invalid', async () => {
+        const moduleData = {
+            name: 'new module',
+            moduleNumber: 'new module'
+        };
+
+        const response = await agent.post('/modules').send(moduleData);
+        expect(response.statusCode).toBe(400);
+    });
 });
 
 describe('GET /modules/:id', () => {
@@ -100,7 +110,7 @@ describe('PUT /modules/:id', () => {
             moduleNumber: 7
         };
 
-        const response = await agent.put(`/modules/invalidId}`).send(updatedModuleData);
+        const response = await agent.put(`/modules/invalidId`).send(updatedModuleData);
         expect(response.statusCode).toBe(400);
     });
 });
@@ -108,7 +118,7 @@ describe('PUT /modules/:id', () => {
 describe('DELETE /modules/:id', () => {
     it('Delete a Module by ID', async () => {
         const allModule = await agent.get('/modules');
-        const moduleNumber = 6;
+        const moduleNumber = 7;
         let moduleId = null;
 
         for (const module of allModule.body) {

@@ -61,7 +61,7 @@ userRouter.post("/", async (req, res) => {
     if (result.acknowledged) {
       res.status(201).json({ status: 201, message: "User created successfully." }); 
     } else {
-      res.status(500).json({ status: 500, message: "Failed to create a new user." });
+      res.status(400).json({ status: 400, message: "Failed to create a new user." });
     }
   } catch (error) {
     res.status(400).send(error.message);

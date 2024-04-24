@@ -50,6 +50,19 @@ describe('POST /quiz', () => {
         const response = await agent.post('/quiz').send(quizData);
         expect(response.statusCode).toBe(201);
     });
+
+    it('Return 400 If Quiz Data is Invalid', async () => {
+        const quizData = {
+            moduleID: "test",
+            videoAndQuizPageID: "test",
+            question: "test",
+            options: ["test", "test1"],
+            answer: "test"
+        };
+
+        const response = await agent.post('/quiz').send(quizData);
+        expect(response.statusCode).toBe(400);
+    });
 });
 
 describe('GET /quiz/:id', () => {
@@ -69,9 +82,9 @@ describe('GET /quiz/:id', () => {
         expect(response.statusCode).toBe(200);
     });
 
-    it('Return 404 If Quiz ID is Invalid', async () => {
+    it('Return 400 If Quiz ID is Invalid', async () => {
         const response = await agent.get('/quiz/invalidId');
-        expect(response.statusCode).toBe(404);
+        expect(response.statusCode).toBe(400);
     });
 });
 

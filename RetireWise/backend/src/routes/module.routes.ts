@@ -48,7 +48,7 @@ moduleRouter.post("/", async (req, res) => {
         if (result.acknowledged) {
             res.status(201).send(`Created new module ${result.insertedId}.`);
         } else {
-            res.status(500).send("Failed to create a new module.");
+            res.status(400).send("Failed to create a new module.");
         }
     } catch (error) {
         console.error(error);
