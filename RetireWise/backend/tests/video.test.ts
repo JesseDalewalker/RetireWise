@@ -77,7 +77,7 @@ describe('GET /videos/:id', () => {
         expect(response.statusCode).toBe(200);
     });
 
-    it('Return 400 If ID is Invalid', async () => {
+    it('Return 400 If Video ID is Invalid', async () => {
         const response = await agent.get('/videos/invalidId');
         expect(response.statusCode).toBe(404);
     });
