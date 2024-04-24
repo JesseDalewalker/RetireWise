@@ -75,11 +75,6 @@ describe('GET /quiz/:id', () => {
     });
 });
 
-// //TODO!!!!!
-// describe('POST /quiz/login and POST /quiz/validate', () => {
-
-// });
-
 describe('PUT /quiz/:id', () => {
     it('Update a Quiz by ID', async () => {
         const allQuizzes = await agent.get('/quiz');
