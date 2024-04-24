@@ -37,12 +37,19 @@ try {
 videoRouter.post("/", async (req, res) => {
 try {
     const video = req.body;
+
+    const existingVideo = await collections.video.findOne({ videoID: video.videoID });
+    
+    if (existingVideo) {
+      return res.status(409).send("Video already exists.");
+    }
+
     const result = await collections.video.insertOne(video);
 
     if (result.acknowledged) {
         res.status(201).send(`Created new video ${result.insertedId}.`);
     } else {
-        res.status(500).send("Failed to create a new video.");
+        res.status(400).send("Failed to create a new video.");
     }
 } catch (error) {
     console.error(error);
