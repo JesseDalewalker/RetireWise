@@ -47,16 +47,6 @@ describe('POST /modules', () => {
         const response = await agent.post('/modules').send(moduleData);
         expect(response.statusCode).toBe(201);
     });
-
-    // it('Return 409 Module Already Exists', async () => {
-    //     const moduleData = {
-    //         "name": 'new module',
-    //         "moduleNumber": 6
-    //     };
-
-    //     const response = await agent.post('/modules').send(moduleData);
-    //     expect(response.status).toBe(409);
-    // });
 });
 
 describe('GET /modules/:id', () => {
