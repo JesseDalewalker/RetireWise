@@ -76,7 +76,7 @@ describe('GET /modules/:id', () => {
         expect(response.statusCode).toBe(200);
     });
 
-    it('Return 400 If ID is Invalid', async () => {
+    it('Return 400 If Module ID is Invalid', async () => {
         const response = await agent.get('/modules/invalidId');
         expect(response.statusCode).toBe(400);
     });
@@ -104,7 +104,7 @@ describe('PUT /modules/:id', () => {
         expect(response.statusCode).toBe(200);
     });
 
-    it('Return 400 if User ID is Invalid', async () => {
+    it('Return 400 if Module ID is Invalid', async () => {
         const updatedModuleData = {
             name: 'newer module',
             moduleNumber: 7
@@ -132,7 +132,7 @@ describe('DELETE /modules/:id', () => {
         expect(response.statusCode).toBe(202);
     });
 
-    it('Return 400 if User ID is Invalid', async () => {
+    it('Return 400 if Module ID is Invalid', async () => {
         const response = await agent.delete(`/modules/invalidId`);
         expect(response.statusCode).toBe(400);
     });
