@@ -44,7 +44,7 @@ export class ModuleComponent{
       // If either condition is true, fetch the module data
       this.newsubscription = this.moduleService.getModules().subscribe(
         (newdata) => {
-          this.modules = newdata;
+          this.modules = newdata.sort((a, b) => a.moduleNumber - b.moduleNumber);
         },
         (error) => {
           console.error('Error fetching module data: ', error);
