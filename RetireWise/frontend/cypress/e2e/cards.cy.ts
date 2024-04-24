@@ -20,13 +20,13 @@ describe(`Module 1's Matching Cards Page`, () => {
         cy.get('.term-container').first().contains('Term');
 
         cy.get('.term-container').first().click();
-        cy.get('.term-container').first().contains('Consumer Debt');
+        cy.get('.term-container').first().contains('Long-Term Care Insurance');
     });
 
     it('Definition Card Flips and Displays Definition When Clicked', () => {
         cy.get('.definition-container').first().contains('Definition');
         cy.get('.definition-container').first().click();
-        cy.get('.definition-container').first().contains('personal debts that are owed');
+        cy.get('.definition-container').first().contains('Protection in the event of a life');
     });
 
     it('Definition and Term Cards Correctly Turn Green When Matched', () => {
