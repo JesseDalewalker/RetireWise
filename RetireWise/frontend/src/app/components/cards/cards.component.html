@@ -19,7 +19,7 @@
         class="term-back term-side rounded-xl text-black border-solid border-black border-2 shadow-lg flex items-center justify-center"
         *ngIf="obj.isFlipped"
         [ngStyle]="{
-          'background-color': obj.state === 'matched' ? 'green' : 'white'
+          'background-color': obj.state === 'matched' ? '#689067' : 'white'
         }"
       >
         {{ obj.wordName }}
@@ -44,7 +44,7 @@
         class="definition-back definition-side rounded-xl text-black border-solid border-black border-2 shadow-lg flex items-center justify-center pl-2"
         *ngIf="obj.isFlipped"
         [ngStyle]="{
-          'background-color': obj.state === 'matched' ? 'green' : 'white'
+          'background-color': obj.state === 'matched' ? '#689067' : 'white'
         }"
       >
         <div class="">{{ obj.definition }}</div>
