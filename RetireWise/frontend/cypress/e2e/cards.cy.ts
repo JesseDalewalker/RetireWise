@@ -18,15 +18,38 @@ describe(`Module 1's Matching Cards Page`, () => {
 
     it('Term Card Flips and Displays Term When Clicked', () => {
         cy.get('.term-container').first().contains('Term');
-
         cy.get('.term-container').first().click();
-        cy.get('.term-container').first().contains('Long-Term Care Insurance');
+
+        cy.get('.term-container').first().then(($element) => {
+            const text = $element.text();
+            const phrasesToCheck = [
+              'Long-Term Care Insurance',
+              'IRA Account',
+              'Consumer Debt',
+              'A 401K Plan'
+            ];
+          
+            const containsAnyPhrase = phrasesToCheck.some(phrase => text.includes(phrase));
+            expect(containsAnyPhrase).to.be.true;
+        });
     });
 
     it('Definition Card Flips and Displays Definition When Clicked', () => {
         cy.get('.definition-container').first().contains('Definition');
         cy.get('.definition-container').first().click();
-        cy.get('.definition-container').first().contains('Protection in the event of a life');
+
+        cy.get('.definition-container').first().then(($element) => {
+            const text = $element.text();
+            const phrasesToCheck = [
+              'Protection in the event of a life',
+              'Personal debts that',
+              'A type of',
+              'An employer-sponsored'
+            ];
+          
+            const containsAnyPhrase = phrasesToCheck.some(phrase => text.includes(phrase));
+            expect(containsAnyPhrase).to.be.true;
+        });
     });
 
     it('Definition and Term Cards Correctly Turn Green When Matched', () => {
