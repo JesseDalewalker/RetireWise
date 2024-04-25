@@ -82,9 +82,33 @@ describe('GET /users/:id', () => {
   });
 });
 
-//TODO!!!!!
-describe('POST /users/login and POST /users/validate', () => {
 
+describe('POST /users/login and POST /users/validate', () => {
+  it('Login User Successfully and Check Token is Valid', async () => {
+    const userData = {
+      email: 'dylantest@mail.com',
+      password: 'Password1!'
+    };
+
+    const response = await agent.post('/users/login').send(userData);
+    expect(response.statusCode).toBe(200);
+
+    const tokenData = {
+      token: response.body.token
+    }
+
+    const tokenResponse = await agent.post('/users/validate').send(tokenData);
+    expect(tokenResponse.statusCode).toBe(200);
+  });
+
+  it('Return 401 If Token is Invalid', async () => {
+    const tokenData = {
+      token: "NotAValidToken"
+    }
+
+    const tokenResponse = await agent.post('/users/validate').send(tokenData);
+    expect(tokenResponse.statusCode).toBe(401);
+  });
 });
 
 describe('PUT /users/:id', () => {
